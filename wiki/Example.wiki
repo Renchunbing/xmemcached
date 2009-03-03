@@ -3,7 +3,7 @@
 
 = 例子 =
 
-Add your content here.
+目前已经支持get、set、add、replace、delete、incr、decr、version这几个协议
 
 {{{
 package net.rubyeye.xmemcached.test;

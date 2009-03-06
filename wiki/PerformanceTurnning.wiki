@@ -1,4 +1,4 @@
-#labels Phase-Support
+#labels Phase-Support,性能优化
 = Xmemcached性能优化=
 
 网络层暂时不提供优化手段，默认设置是我测试后比较平衡的配置

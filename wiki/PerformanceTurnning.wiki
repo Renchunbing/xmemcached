@@ -1,0 +1,13 @@
+#labels Phase-Support
+= Xmemcached性能优化=
+
+网络层暂时不提供优化手段，默认设置是我测试后比较平衡的配置
+
+
+
+= Details =
+
+XMemcached对操作主要有两个优化手段
+  * get的优化，连续的get操作将被合并成一个get操作提交，最多合并mergeGetsCount个命令，这个参数可以通过XMemcachedClient.setGetsMergeFactor(int)方法设置，默认是60。get优化默认是开启的，可以通过XMemcachedClient.setOptimiezeGet(false)关闭。
+  
+  *set的优化，连续的set操作，并且key相同的话，那么将只发送最后一个set命令。这个优化默认未开启，可以通过XMemcachedClient.setOptimiezeSet(true)来启用。

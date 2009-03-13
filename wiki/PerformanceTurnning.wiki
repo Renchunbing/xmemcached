@@ -5,9 +5,22 @@
 
 
 
-= Details =
+= 详细说明=
 
-XMemcached对操作主要有两个优化手段
+XMemcached对操作主要的优化手段
   * get的优化，连续的get操作将被合并成一个get操作提交，最多合并mergeGetsCount个命令，这个参数可以通过XMemcachedClient.setGetsMergeFactor(int)方法设置，默认是60。get优化默认是开启的，可以通过XMemcachedClient.setOptimiezeGet(false)关闭。
   
   * set的优化，连续的set操作，并且key相同的话，那么将只发送最后一个set命令。这个优化默认未开启，可以通过XMemcachedClient.setOptimiezeSet(true)来启用。
+  
+  * 网络层的优化，默认采用阻塞读，在局域网内能带来更好的效率，可以设置网络参数，在多节点memcached下，强烈建议将读的线程数设置为节点数：
+
+{{{
+     Configuration conf=XMemcachedClient.getDefaultConfiguration();
+     conf.setReadThreadCount(2);
+     XMemcachedClient mc = new XMemcachedClient(
+		conf,new CachedBufferAllocator());
+     mc.addServer(ip, port1);
+     mc.addServer(ip, port2);
+}}}
+
+  * 如上面代码所示，你可以采用CachedBufferAllocator作为ByteBuffer的分配器，这个分配器将在ThreadLocal中缓存创建的ByteBuffer重复利用。

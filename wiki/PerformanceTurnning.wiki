@@ -12,7 +12,7 @@ XMemcached对操作主要的优化手段
   
   * set的优化，连续的set操作，并且key相同的话，那么将只发送最后一个set命令。这个优化默认未开启，可以通过XMemcachedClient.setOptimiezeSet(true)来启用。
   
-  * 网络层的优化，默认采用阻塞读，在局域网内能带来更好的效率，可以设置网络参数，在多节点memcached下，强烈建议将读的线程数设置为节点数：
+  * 网络层的优化，默认采用阻塞读，在局域网内能带来更好的效率，可以设置网络参数，在多节点memcached下，强烈建议将读的线程数设置大于0，接近节点数（具体参数看你的测试结果）：
 
 {{{
      Configuration conf=XMemcachedClient.getDefaultConfiguration();

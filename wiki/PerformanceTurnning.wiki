@@ -25,4 +25,6 @@ XMemcached对操作主要的优化手段
     builder.getConfiguration().setReuseAddress(true);
     builder.getConfiguration().setTcpNoDelay(true);
     builder.getConfiguration().setTcpRecvBufferSize(8*1024);
+    ......
+    ......
 }}}

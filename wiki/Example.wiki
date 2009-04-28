@@ -48,10 +48,9 @@ public class Example {
 
 			int port1 = 11211;
                         int port2 = 12000;
-			XMemcachedClient client = new XMemcachedClient();
-                        //多节点
-                        client.addServer(ip,port1);
-                        client.addServer(ip,port2);
+			XMemcachedClientBuilder builder = new XMemcachedClientBuilder(
+					AddrUtil.getAddresses("192.168.222.100:12000 192.168.222.100:12001"));
+                        XMemcachedClient client= builder.build();
 			if (!client.set("hello", 0, "dennis")) {
 				System.err.println("set error");
 			}

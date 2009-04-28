@@ -1,0 +1,19 @@
+#labels 分布
+ * memcached的分布是通过客户端实现的,xmemcached支持多节点的memcached分布，默认采用余数取模算法
+
+{{{
+  XMemcachedClientBuilder builder = new XMemcachedClientBuilder(
+					AddrUtil.getAddresses("192.168.217:12000 192.168.217.100:12001 192.168.217.101:12001"]));
+  XMemcachedClient mc = builder.build();
+
+}}}
+
+ * xmemcached同样支持一致性哈希分布，通过下列代码启用:
+
+{{{
+  XMemcachedClientBuilder builder = new XMemcachedClientBuilder(
+					AddrUtil.getAddresses("192.168.217:12000 192.168.217.100:12001 192.168.217.101:12001"]));
+  builder.setSessionLocator(new KetamaMemcachedSessionLocator());
+  XMemcachedClient mc = builder.build();
+
+}}}

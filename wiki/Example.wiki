@@ -55,8 +55,6 @@ public class Example {
 			int port = 12000;
 			XMemcachedClient client = new XMemcachedClient(
 					new CachedBufferAllocator());
-			// client.setOptimiezeSet(true);
-			// 添加server
 			client.addServer(ip, port);
 
 			if (!client.set("hello", 0, "dennis")) {

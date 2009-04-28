@@ -1,11 +1,5 @@
 #labels Phase-Support,性能优化
-= Xmemcached性能优化=
-
-网络层暂时不提供优化手段，默认设置是我测试后比较平衡的配置
-
-
-
-= 详细说明=
+= Xmemcached性能优化 =
 
 XMemcached对操作主要的优化手段
   * get的优化，连续的get操作将被合并成一个get操作提交，最多合并mergeFactor个命令，这个参数可以通过XMemcachedClient.setMergeFactor(int)方法设置，默认是150。get优化默认是开启的，可以通过XMemcachedClient.setMergeFactor(0)关闭。不推荐设置过大的数值。
@@ -22,3 +16,13 @@ XMemcached对操作主要的优化手段
 }}}
 
   * 如上面代码所示，你可以采用CachedBufferAllocator作为ByteBuffer的分配器，这个分配器将在ThreadLocal中缓存创建的ByteBuffer重复利用。
+
+  * 更多网络优化参数，可以通过
+{{{
+   XMemcachedClientBuilder builder = new XMemcachedClientBuilder(
+					AddrUtil.getAddresses("localhost:12000"));
+    builder.getConfiguration().setHandleReadWriteConcurrently(true);
+    builder.getConfiguration().setReuseAddress(true);
+    builder.getConfiguration().setTcpNoDelay(true);
+    builder.getConfiguration().setTcpRecvBufferSize(8*1024);
+}}}

@@ -3,7 +3,11 @@
 
 = Introduction =
 
-xmemcached从1.10-RC1版本开始支持jmx监控，你可以通过jmx查询统计数据和调整性能参数等。默认jmx监控未开启，你可以通过启动参数java -Dxmemcached.jmx.enable=true来启用。远程访问jmx是通过RMI发布实现的，你可以通过service:jmx:rmi:///jndi/rmi://[host]:[port]/[ name]访问此服务。默认的port是7077，默认的name是xmemcachedServer 这些参数可以通过下列参数来修改:
+xmemcached从1.10-RC1版本开始支持jmx监控，你可以通过jmx查询统计数据和调整性能参数等。默认jmx监控未开启，你可以通过启动参数java -Dxmemcached.jmx.enable=true来启用。远程访问jmx是通过RMI发布实现的，你可以通过
+{{{
+service:jmx:rmi:///jndi/rmi://[host]:[port]/[ name]
+}}}
+访问此服务。默认的port是7077，默认的name是xmemcachedServer 这些参数可以通过下列参数来修改:
 
     * -Dxmemcached.rmi.port
 

@@ -1,6 +1,4 @@
-#summary One-sentence summary of this page.
 #labels Phase-Support,jmx
-
 = Introduction =
 
 xmemcached从1.10-RC1版本开始支持jmx监控，你可以通过jmx查询统计数据和调整性能参数等。默认jmx监控未开启，你可以通过启动参数java -Dxmemcached.jmx.enable=true来启用。远程访问jmx是通过RMI发布实现的，你可以通过

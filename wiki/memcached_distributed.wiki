@@ -1,4 +1,4 @@
-#labels 分布
+#labels distributed
  * Standard Hash, hash(key) mod server_count (余数分布)
 
 {{{

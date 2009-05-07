@@ -1,5 +1,4 @@
-#labels Phase-Support,范例
-
+#labels Phase-Support,Example
 = Example =
 Supports all memcached text based protocols (binary protocol on the road) currently, include  get/gets、set、add、replace、delete、append、prepend、cas、multi get/gets、incr、decr、version、stats、flush_all etc.
 

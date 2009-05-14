@@ -9,3 +9,5 @@ Access MBean through
 {{{
 service:jmx:rmi:///jndi/rmi://[host]:7077/xmemcachedServer 
 }}}
+
+You can add or remove memcached server dynamically and monitor XmemcachedClient's behavior through MBeans.

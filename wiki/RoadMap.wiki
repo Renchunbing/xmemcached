@@ -1,2 +1,2 @@
 #labels Phase-Support
-*1.2    Implement memcached binary protocol. *
+*1.2 *   Implement memcached binary protocol. 

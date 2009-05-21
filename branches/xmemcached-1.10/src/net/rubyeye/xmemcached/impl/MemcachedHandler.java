@@ -43,9 +43,9 @@ import com.google.code.yanf4j.util.ShiftAndByteBufferMatcher;
 
 /**
  * Decode commands from buffer,then dispatch commands.
- * 
+ *
  * @author dennis
- * 
+ *
  */
 public class MemcachedHandler extends HandlerAdapter<Command> implements
 		MemcachedProtocolHandler {
@@ -62,7 +62,7 @@ public class MemcachedHandler extends HandlerAdapter<Command> implements
 
 	/**
 	 * 返回boolean值并唤醒
-	 * 
+	 *
 	 * @param result
 	 * @return
 	 */
@@ -92,9 +92,9 @@ public class MemcachedHandler extends HandlerAdapter<Command> implements
 
 	/**
 	 * 解析状态
-	 * 
+	 *
 	 * @author dennis
-	 * 
+	 *
 	 */
 	enum ParseStatus {
 
@@ -105,8 +105,6 @@ public class MemcachedHandler extends HandlerAdapter<Command> implements
 
 	public boolean onReceive(final MemcachedTCPSession session,
 			final ByteBuffer buffer) {
-		int origPos = buffer.position();
-		int origLimit = buffer.limit();
 		LABEL: while (true) {
 			switch (session.status) {
 			case NULL:
@@ -167,7 +165,7 @@ public class MemcachedHandler extends HandlerAdapter<Command> implements
 							+ session.currentLine);
 				}
 			case GET:
-				return parseGet(session, buffer, origPos, origLimit);
+				return parseGet(session, buffer);
 			case STATS:
 				return parseStatsCommand(session, buffer);
 			default:
@@ -179,7 +177,7 @@ public class MemcachedHandler extends HandlerAdapter<Command> implements
 
 	/**
 	 * 处理统计消息
-	 * 
+	 *
 	 * @param session
 	 * @param buffer
 	 * @return
@@ -210,14 +208,14 @@ public class MemcachedHandler extends HandlerAdapter<Command> implements
 
 	/**
 	 * 解析get协议response
-	 * 
+	 *
 	 * @param buffer
 	 * @param origPos
 	 * @param origLimit
 	 * @return
 	 */
 	private final boolean parseGet(MemcachedTCPSession session,
-			ByteBuffer buffer, int origPos, int origLimit) {
+			ByteBuffer buffer) {
 		while (true) {
 			nextLine(session, buffer);
 			if (session.currentLine == null) {
@@ -251,8 +249,6 @@ public class MemcachedHandler extends HandlerAdapter<Command> implements
 				int dataLen = Integer.parseInt(items[3]);
 				// 不够数据，返回
 				if (buffer.remaining() < dataLen + 2) {
-					buffer.position(origPos).limit(origLimit);
-					session.currentLine = null;
 					return false;
 				}
 				// 可能是gets操作
@@ -267,8 +263,7 @@ public class MemcachedHandler extends HandlerAdapter<Command> implements
 				buffer.position(buffer.position() + SPLIT.remaining());
 				session.currentLine = null;
 			} else {
-				buffer.position(origPos).limit(origLimit);
-				session.currentLine = null;
+				session.close();
 				return false;
 			}
 
@@ -277,7 +272,7 @@ public class MemcachedHandler extends HandlerAdapter<Command> implements
 
 	/**
 	 * 解析get协议返回空
-	 * 
+	 *
 	 * @return
 	 */
 	private final boolean parseEndCommand(MemcachedTCPSession session) {
@@ -312,7 +307,7 @@ public class MemcachedHandler extends HandlerAdapter<Command> implements
 
 	/**
 	 * 解析错误response
-	 * 
+	 *
 	 * @return
 	 */
 	private static final boolean parseException(MemcachedTCPSession session) {
@@ -329,7 +324,7 @@ public class MemcachedHandler extends HandlerAdapter<Command> implements
 
 	/**
 	 * 解析错误response
-	 * 
+	 *
 	 * @return
 	 */
 	private final boolean parseClientException(MemcachedTCPSession session) {
@@ -350,7 +345,7 @@ public class MemcachedHandler extends HandlerAdapter<Command> implements
 
 	/**
 	 * 解析错误response
-	 * 
+	 *
 	 * @return
 	 */
 	private final boolean parseServerException(MemcachedTCPSession session) {
@@ -371,7 +366,7 @@ public class MemcachedHandler extends HandlerAdapter<Command> implements
 
 	/**
 	 * 解析version协议response
-	 * 
+	 *
 	 * @return
 	 */
 	private final boolean parseVersionCommand(MemcachedTCPSession session) {
@@ -391,7 +386,7 @@ public class MemcachedHandler extends HandlerAdapter<Command> implements
 
 	/**
 	 * 解析incr,decr协议response
-	 * 
+	 *
 	 * @return
 	 */
 	private final boolean parseIncrDecrCommand(MemcachedTCPSession session) {
@@ -413,7 +408,7 @@ public class MemcachedHandler extends HandlerAdapter<Command> implements
 
 	/**
 	 * 获取下一行
-	 * 
+	 *
 	 * @param buffer
 	 */
 	protected static final void nextLine(MemcachedTCPSession session,
@@ -481,7 +476,7 @@ public class MemcachedHandler extends HandlerAdapter<Command> implements
 
 	/**
 	 * auto reconect to memcached server
-	 * 
+	 *
 	 * @param session
 	 */
 	protected void reconnect(Session session) {
@@ -506,7 +501,7 @@ public class MemcachedHandler extends HandlerAdapter<Command> implements
 					statistics(CommandType.GET_HIT);
 				else
 					statistics(CommandType.GET_MSS);
-				executingCmd.setResult(data); // 设置CachedData返回，transcoder.decode
+				executingCmd.setResult(data); //设置CachedData返回，transcoder.decode
 				// ()放到用户线程
 
 				executingCmd.countDownLatch();

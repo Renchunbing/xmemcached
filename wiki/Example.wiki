@@ -48,7 +48,7 @@ public class Example {
 		try {
 
 			XMemcachedClientBuilder builder = new XMemcachedClientBuilder(
-					AddrUtil.getAddresses("192.168.207.101:12000"));
+					AddrUtil.getAddresses("localhost:12000"));
             XMemcachedClient client=builder.build();
 			if (!client.set("hello", 0, "dennis")) {
 				System.err.println("set error");

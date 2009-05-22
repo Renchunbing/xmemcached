@@ -29,6 +29,7 @@
 		<tar tarfile="${build.dist}/${ant.project.name}-bin-${project.version}-with-dependences.tar.gz" basedir="." compression="gzip">
 			<include name="**/lib/*" />
 			<include name="**/dist/*" />
+			<include name="ChangeLog.txt" />
 		</tar>
 	</target>
 	<target name="build-doc">

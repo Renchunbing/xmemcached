@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
@@ -814,7 +813,7 @@ public final class XMemcachedClient implements XMemcachedClientMBean,
 		for (String key : keyCollections) {
 			Session index = this.sessionLocator.getSessionByKey(key);
 			if (!catalogMap.containsKey(index)) {
-				List<String> tmpKeys = new LinkedList<String>();
+				List<String> tmpKeys = new ArrayList<String>(100);
 				tmpKeys.add(key);
 				catalogMap.put(index, tmpKeys);
 			} else {

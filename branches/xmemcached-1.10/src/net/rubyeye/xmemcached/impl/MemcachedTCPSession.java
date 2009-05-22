@@ -41,7 +41,7 @@ import net.rubyeye.xmemcached.utils.SimpleBlockingQueue;
 
 /**
  * Connected session for a memcached server
- *
+ * 
  * @author dennis
  */
 public class MemcachedTCPSession extends DefaultTCPSession {
@@ -52,6 +52,7 @@ public class MemcachedTCPSession extends DefaultTCPSession {
 	protected BlockingQueue<Command> executingCmds; // comands which are already
 	// sent
 	Map<String, CachedData> currentValues = null;
+	String currentKey;
 	private SocketAddress remoteSocketAddress;
 	private int sendBufferSize;
 	private MemcachedOptimiezer optimiezer;
@@ -96,11 +97,13 @@ public class MemcachedTCPSession extends DefaultTCPSession {
 		Command currentCommand = null;
 		try {
 			if (getSessionStatus() == SessionStatus.WRITING) // flush method is
-																// called?
+			// called?
 			{
 				return;
 			}
-			if (getSessionStatus() == SessionStatus.READING // allow readWriteConcurrently ?
+			if (getSessionStatus() == SessionStatus.READING // allow
+					// readWriteConcurrently
+					// ?
 					&& !handleReadWriteConcurrently) {
 				return;
 			}
@@ -211,7 +214,7 @@ public class MemcachedTCPSession extends DefaultTCPSession {
 
 	/**
 	 * get current command from queue
-	 *
+	 * 
 	 * @return
 	 */
 	Command pollCurrentExecutingCommand() {
@@ -231,7 +234,7 @@ public class MemcachedTCPSession extends DefaultTCPSession {
 
 	/**
 	 * peek current command from queue
-	 *
+	 * 
 	 * @return
 	 */
 	Command peekCurrentExecutingCommand() {
@@ -248,7 +251,7 @@ public class MemcachedTCPSession extends DefaultTCPSession {
 
 	/**
 	 * is allow auto recconect if closed?
-	 *
+	 * 
 	 * @return
 	 */
 	public boolean isAllowReconnect() {

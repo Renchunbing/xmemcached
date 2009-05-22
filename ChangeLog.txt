@@ -1,0 +1,12 @@
+
+-----------------------------------------
+2009-05-22
+--------xmemcached 1.10-Released----------
+1.Improve multi-get operation's performance,It's as fast as spymemcached.It will continue on.
+2.Refactoring:
+   Move classes such as MemcachedTCPSession,MemcachedHandler,MemcachedConnector etc. from package net.rubyeye.xmemcached to  net.rubyeye.xmemcached.impl
+   Introduce interfaces: MemcachedClient,MemcachedClientBuilder
+3.More Unit tests 
+4.Move 1.10 from svn trunk to branches/xmemcached-1.10 
+
+-------------------End--------------------- 

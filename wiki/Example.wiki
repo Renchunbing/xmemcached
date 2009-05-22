@@ -1,4 +1,4 @@
-#labels Phase-Support,Example
+#labels Phase-Support,Example,Useage
 = Introduction =
 Supports all memcached text based protocols (binary protocol on the road) currently, include  get/gets、set、add、replace、delete、append、prepend、cas、multi get/gets、incr、decr、version、stats、flush_all etc.
 =Simple Example=
@@ -31,24 +31,70 @@ client.delete("key");
 
    Using CASOperation instead of using gets and cas method.Here is a simple example.N threads want to increment the value of key "a"
 {{{
-     //IncrementOperation
-     class IncrmentOperation implements CASOperation<Integer> {
-		@Override
+     class CASThread extends Thread {
+	static final class IncrmentOperation implements CASOperation<Integer> {
+		/*
+                 *Max repeat times.if repeat times is great than this value,
+                 *xmemcached will throw a TimeoutException.
+                 */
+                @Override
 		public int getMaxTries() {
-                        //max repeat times,if great than this value,it will throw TimeoutException.
 			return Integer.MAX_VALUE; 
 		}
 
+                //increment current value                
 		@Override
 		public Integer getNewValue(long currentCAS, Integer currentValue) {
-			return currentValue + 1; // increment current value.
+			return currentValue + 1; // 当前值+1
 		}
 	}
 
-       MemcachedClientBuilder builder = new XMemcachedClientBuilder(
-					AddrUtil.getAddresses("server1:11211"));
-       MemcachedClient client = builder.build();
-       //cas operation.
-       client.cas("a", 3600, new IncrmentOperation())
+	private XMemcachedClient mc;
+	private CountDownLatch cd;
+
+	public CASThread(XMemcachedClient mc, CountDownLatch cdl) {
+		super();
+		this.mc = mc;
+		this.cd = cdl;
+
+	}
+
+	public void run() {
+		try {
+                        //do the cas operation
+			if (mc.cas("a", 0, new IncrmentOperation()))
+				this.cd.countDown();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
+
+public class CASTest {
+
+	public static void main(String[] args) throws Exception {
+		if (args.length < 2) {
+			System.err.println("Usage:java CASTest [threadNum] [server]");
+		    System.exit(1);
+		}
+                //threads num
+		int NUM = Integer.parseInt(args[0]);
+		XMemcachedClient mc = new XMemcachedClient(AddrUtil.getAddresses(args[1]));
+		//initial value is 0
+		mc.set("a", 0, 0);
+		CountDownLatch cdl = new CountDownLatch(NUM);
+		long start = System.currentTimeMillis();
+		//start NUM threads to increment the value
+		for (int i = 0; i < NUM; i++)
+			new CASThread(mc, cdl).start();
+
+		cdl.await();
+		System.out.println("test cas,timed:"
+				+ (System.currentTimeMillis() - start));
+		System.out.println("result=" + mc.get("a"));
+		mc.shutdown();
+	}
+}
+
    
 }}}

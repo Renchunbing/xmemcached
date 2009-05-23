@@ -29,7 +29,7 @@ client.delete("key");
 
 =Using CAS=
 
-   Using CASOperation instead of using gets and cas method.Here is a simple example.N threads want to increment the value of key "a"
+   Using CASOperation instead of using gets and cas methods.Here is a simple example,start NUM threads to increment the value of key "a"
 {{{
      class CASThread extends Thread {
 	static final class IncrmentOperation implements CASOperation<Integer> {

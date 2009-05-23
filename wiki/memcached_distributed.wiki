@@ -2,18 +2,18 @@
  * Standard Hash, hash(key) mod server_count (余数分布)
 
 {{{
-  XMemcachedClientBuilder builder = new XMemcachedClientBuilder(
+  MemcachedClientBuilder builder = new XMemcachedClientBuilder(
 					AddrUtil.getAddresses("server1:11211 server2:11211 server3:11211"));
-  XMemcachedClient mc = builder.build();
+  MemcachedClient mc = builder.build();
 
 }}}
 
  * Consistent  Hash(一致性哈希)
 
 {{{
-  XMemcachedClientBuilder builder = new XMemcachedClientBuilder(
+  MemcachedClientBuilder builder = new XMemcachedClientBuilder(
 					AddrUtil.getAddresses("server1:11211 server2:11211 server3:11211"));
   builder.setSessionLocator(new KetamaMemcachedSessionLocator());
-  XMemcachedClient mc = builder.build();
+  MemcachedClient mc = builder.build();
 
 }}}

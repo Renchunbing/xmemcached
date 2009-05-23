@@ -3,7 +3,7 @@
 
 {{{
   XMemcachedClientBuilder builder = new XMemcachedClientBuilder(
-					AddrUtil.getAddresses("192.168.217:12000 192.168.217.100:12001 192.168.217.101:12001"));
+					AddrUtil.getAddresses("server1:11211 server2:11211 server3:11211"));
   XMemcachedClient mc = builder.build();
 
 }}}
@@ -12,7 +12,7 @@
 
 {{{
   XMemcachedClientBuilder builder = new XMemcachedClientBuilder(
-					AddrUtil.getAddresses("192.168.217:12000 192.168.217.100:12001 192.168.217.101:12001"));
+					AddrUtil.getAddresses("server1:11211 server2:11211 server3:11211"));
   builder.setSessionLocator(new KetamaMemcachedSessionLocator());
   XMemcachedClient mc = builder.build();
 

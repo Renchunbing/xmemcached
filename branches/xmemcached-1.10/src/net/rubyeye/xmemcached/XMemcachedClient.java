@@ -14,6 +14,7 @@ package net.rubyeye.xmemcached;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -737,8 +738,9 @@ public final class XMemcachedClient implements XMemcachedClientMBean,
 		}
 		final CountDownLatch latch;
 		final List<Command> commands;
-		final List<Map<String, CachedData>> returnValues = new ArrayList<Map<String, CachedData>>(
-				connector.getSessionSet().size());
+		final List<Map<String, CachedData>> returnValues = Collections
+				.synchronizedList(new ArrayList<Map<String, CachedData>>(
+						connector.getSessionSet().size()));
 		if (this.connector.getSessionSet().size() <= 1) {
 			commands = new ArrayList<Command>(1);
 			latch = new CountDownLatch(1);

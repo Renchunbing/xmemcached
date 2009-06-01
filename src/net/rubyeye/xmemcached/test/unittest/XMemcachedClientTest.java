@@ -167,7 +167,7 @@ public class XMemcachedClientTest extends TestCase {
 	public void testVersion() throws Exception {
 		assertNotNull(memcachedClient.version());
 		System.out.println(memcachedClient.version());
-
+		System.out.println(memcachedClient.getVersions());
 	}
 
 	public void testFlushAll() throws Exception {

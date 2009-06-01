@@ -1258,6 +1258,36 @@ public final class XMemcachedClient implements XMemcachedClientMBean,
 		return (String) command.getResult();
 	}
 
+	@Override
+	public Map<InetSocketAddress, String> getVersions()
+			throws TimeoutException, InterruptedException, MemcachedException {
+		return getVersions(DEFAULT_OP_TIMEOUT);
+	}
+
+	public Map<InetSocketAddress, String> getVersions(long timeout)
+			throws TimeoutException, InterruptedException, MemcachedException {
+		final Set<Session> sessionSet = this.connector.getSessionSet();
+		Map<InetSocketAddress, String> collectResult = new HashMap<InetSocketAddress, String>();
+		final CountDownLatch latch = new CountDownLatch(sessionSet.size());
+		Map<Command, InetSocketAddress> commandMap = new HashMap<Command, InetSocketAddress>();
+		for (Session session : sessionSet) {
+			final Command command = CommandFactory.createVersionCommand();
+			command.setLatch(latch);
+			if (!session.send(command))
+				throw new MemcachedException("send command fail");
+			commandMap.put(command, session.getRemoteSocketAddress());
+		}
+		if (!latch.await(timeout, TimeUnit.MILLISECONDS)) {
+			throw new TimeoutException("Timed out waiting for operation");
+		}
+		for (Command command : commandMap.keySet()) {
+			checkException(command);
+			collectResult.put(commandMap.get(command), (String) command
+					.getResult());
+		}
+		return collectResult;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -1541,16 +1571,16 @@ public final class XMemcachedClient implements XMemcachedClientMBean,
 	}
 
 	@Override
-	public Map<String, Map<String, String>> stats() throws MemcachedException,
-			InterruptedException, TimeoutException {
+	public Map<InetSocketAddress, Map<String, String>> stats()
+			throws MemcachedException, InterruptedException, TimeoutException {
 		return stats(DEFAULT_OP_TIMEOUT);
 	}
 
 	@Override
-	public Map<String, Map<String, String>> stats(long timeout)
+	public Map<InetSocketAddress, Map<String, String>> stats(long timeout)
 			throws MemcachedException, InterruptedException, TimeoutException {
 		final Set<Session> sessionSet = this.connector.getSessionSet();
-		Map<String, Map<String, String>> collectResult = new HashMap<String, Map<String, String>>();
+		Map<InetSocketAddress, Map<String, String>> collectResult = new HashMap<InetSocketAddress, Map<String, String>>();
 
 		for (Session session : sessionSet) {
 			final CountDownLatch latch = new CountDownLatch(1);
@@ -1563,8 +1593,7 @@ public final class XMemcachedClient implements XMemcachedClientMBean,
 			if (!latch.await(timeout, TimeUnit.MILLISECONDS)) {
 				throw new TimeoutException("Timed out waiting for operation");
 			}
-			collectResult.put(session.getRemoteSocketAddress().getHostName()
-					+ ":" + session.getRemoteSocketAddress().getPort(), result);
+			collectResult.put(session.getRemoteSocketAddress(), result);
 		}
 		return collectResult;
 	}

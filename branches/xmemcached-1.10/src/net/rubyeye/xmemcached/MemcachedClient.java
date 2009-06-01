@@ -5,6 +5,7 @@ import java.net.InetSocketAddress;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+
 import java.util.concurrent.TimeoutException;
 
 import net.rubyeye.xmemcached.buffer.BufferAllocator;
@@ -531,7 +532,7 @@ public interface MemcachedClient {
 	/**
 	 * 获取memcached版本，此方法在多个节点的情况下将按照"version"字符串的hash值查找对应的连接并发送version协议，
 	 * 也就说此方法仅返回某个节点的memcached版本，如果要查询特定节点的memcached版本，请参考stats方法
-	 * 
+	 * @deprecated replace with getVersions,It will be removed in 1.20
 	 * @return 版本号字符串
 	 * @throws TimeoutException
 	 * @throws InterruptedException
@@ -539,6 +540,12 @@ public interface MemcachedClient {
 	 */
 	public abstract String version() throws TimeoutException,
 			InterruptedException, MemcachedException;
+	
+	public abstract Map<InetSocketAddress,String> getVersions() throws TimeoutException,
+	InterruptedException, MemcachedException;
+	
+	public Map<InetSocketAddress, String> getVersions(long timeout) throws TimeoutException,
+	InterruptedException, MemcachedException;
 
 	/**
 	 * 递增key对应的value
@@ -673,10 +680,10 @@ public interface MemcachedClient {
 	 * @throws InterruptedException
 	 * @throws TimeoutException
 	 */
-	public abstract Map<String, Map<String, String>> stats(long timeout)
+	public abstract Map<InetSocketAddress, Map<String, String>> stats(long timeout)
 			throws MemcachedException, InterruptedException, TimeoutException;
 	
-	public abstract Map<String, Map<String, String>> stats()
+	public abstract Map<InetSocketAddress, Map<String, String>> stats()
 	throws MemcachedException, InterruptedException, TimeoutException;
 
 	/**
@@ -694,5 +701,7 @@ public interface MemcachedClient {
 	 */
 	@SuppressWarnings("unchecked")
 	public abstract void setTranscoder(final Transcoder transcoder);
+
+
 
 }

@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -1539,7 +1540,36 @@ public final class XMemcachedClient implements XMemcachedClientMBean,
 		return (Boolean) command.getResult();
 	}
 
-	private void latchWait(final Command cmd, final long timeout)
+	@Override
+	public Map<String, Map<String, String>> stats() throws MemcachedException,
+			InterruptedException, TimeoutException {
+		return stats(DEFAULT_OP_TIMEOUT);
+	}
+
+	@Override
+	public Map<String, Map<String, String>> stats(long timeout)
+			throws MemcachedException, InterruptedException, TimeoutException {
+		final Set<Session> sessionSet = this.connector.getSessionSet();
+		Map<String, Map<String, String>> collectResult = new HashMap<String, Map<String, String>>();
+
+		for (Session session : sessionSet) {
+			final CountDownLatch latch = new CountDownLatch(1);
+			Map<String, String> result = new HashMap<String, String>();
+			Command command = CommandFactory.createStatsCommand();
+			command.setResult(result);
+			command.setLatch(latch);
+			if (!session.send(command))
+				throw new MemcachedException("send command fail");
+			if (!latch.await(timeout, TimeUnit.MILLISECONDS)) {
+				throw new TimeoutException("Timed out waiting for operation");
+			}
+			collectResult.put(session.getRemoteSocketAddress().getHostName()
+					+ ":" + session.getRemoteSocketAddress().getPort(), result);
+		}
+		return collectResult;
+	}
+
+	private final void latchWait(final Command cmd, final long timeout)
 			throws InterruptedException, TimeoutException {
 		if (!cmd.getLatch().await(timeout, TimeUnit.MILLISECONDS)) {
 			cmd.cancel();

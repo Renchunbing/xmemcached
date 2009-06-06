@@ -46,7 +46,7 @@ public class StatisticsHandler implements StatisticsHandlerMBean {
 	}
 
 	public final void statistics(Command.CommandType cmdType) {
-		if (this.statistics)
+		if (this.statistics&&this.counterMap.get(cmdType)!=null)
 			this.counterMap.get(cmdType).incrementAndGet();
 	}
 

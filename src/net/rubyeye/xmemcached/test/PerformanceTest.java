@@ -17,6 +17,10 @@ public class PerformanceTest {
 	 * @author dennis
 	 * 
 	 */
+	/**
+	 * @author dennis
+	 *
+	 */
 	static class TestWriteRunnable implements Runnable {
 
 		private MemcachedClient mc;

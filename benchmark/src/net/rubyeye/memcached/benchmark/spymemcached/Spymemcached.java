@@ -2,16 +2,17 @@ package net.rubyeye.memcached.benchmark.spymemcached;
 
 import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.atomic.AtomicLong;
 
-import net.rubyeye.memcached.BaseTest;
 import net.rubyeye.memcached.benchmark.Constants;
 import net.spy.memcached.AddrUtil;
 import net.spy.memcached.MemcachedClient;
+import net.spy.memcached.transcoders.SerializingTranscoder;
 
 import com.google.code.yanf4j.util.ResourcesUtils;
 
-public class Spymemcached extends BaseTest implements Constants {
+public class Spymemcached implements Constants {
 
 	public static void main(String[] args) throws Exception {
 		Properties properties = ResourcesUtils
@@ -49,18 +50,19 @@ public class Spymemcached extends BaseTest implements Constants {
 		CountDownLatch latch = new CountDownLatch(threads);
 		AtomicLong miss = new AtomicLong(0);
 		AtomicLong fail = new AtomicLong(0);
-		AtomicLong hit = new AtomicLong(0);
 		long start = System.nanoTime();
 		for (int i = 0; i < threads; i++) {
 			new ReadWriteThread(memcachedClient, repeats, latch, i * repeats,
-					length, miss,fail,hit).start();
+					length, miss,fail).start();
 		}
 		latch.await();
 		if (print) {
 			long duration = System.nanoTime() - start;
 			long total = repeats * threads;
-			printResult(length, threads, repeats, miss, fail, hit, duration,
-					total);
+			System.out.println("threads=" + threads
+					+ ",repeats=" + repeats + ",valueLength=" + length
+					+ ",tps=" + total * 1000000000 / duration + ",miss="
+					+ miss.get()+",fail="+fail.get());
 		}
 	}
 }

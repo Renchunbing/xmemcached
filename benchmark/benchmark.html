@@ -15,16 +15,14 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 <body>
 <h1>Performance Comparison between Java Memcached Client</h1>
 
-<p><h2>This page is invalid,I will update test result.</h2>
-
 URL:
 <a href="http://xmemcached.googlecode.com/svn/trunk/benchmark/benchmark.html">http://xmemcached.googlecode.com/svn/trunk/benchmark/benchmark.html</a>
 
 <p style="text-align: justify;">There are several memcached client
-for java,include <a href="http://code.google.com/p/spymemcached">spymemcached</a>, &nbsp;<a href="http://www.whalin.com/memcached/">Java-MemCached</a> , <a
-	href="http://code.google.com/p/xmemcached/">Xmemcached</a> and <a
-	href="http://code.google.com/p/memcache-client-forjava/">memcached-client-forjava(A optimiezed Java-MemCached)</a> etc. The
-performance numbers of the 4 open source memcached client are presented
+for java,include <a href="http://code.google.com/p/spymemcached">spymemcached</a>, &nbsp;<a
+	href="http://code.google.com/p/memcache-client-forjava/">memcached-client-forjava(A optimiezed Java-MemCached)</a> and <a
+	href="http://code.google.com/p/xmemcached/">xmemcached</a> etc. The
+performance numbers of the 3 open source memcached client are presented
 here to help you make choice.</p>
 
 <h2>Where's the Graph?</h2>
@@ -39,7 +37,8 @@ machine</p>
 
 <p style="text-align: justify;">A java client connect to memcached
 server,then start numbers of threads to repeat themself to store and
-retrive data from memcachd concurrently,write 30% and read 70%.</p>
+retrive data from memcachd concurrently,write 30% and read 70%,ensure
+hit rate reach 70%</p>
 
 <h2>Test Environment</h2>
 
@@ -49,7 +48,7 @@ retrive data from memcachd concurrently,write 30% and read 70%.</p>
 		<li>Memcached Server
 		<ul>
 			<li>Version is 1.2.8,default install configuration.</li>
-			<li>Start with option "-p 12000 -m 8192"</li>
+			<li>Start with option "-p 12000 -m 4096"</li>
 		</ul>
 		</li>
 		<li>Java Client
@@ -57,11 +56,13 @@ retrive data from memcachd concurrently,write 30% and read 70%.</p>
 		    <li>JVM Version: Sun JDK 1.6.0_07 </li>
 		    <li>All clients use memcached text protocol.
 			<li>xmemcached 1.1.1,default configuration</li>
-			<li>Spymemcached 2.3.1,default configuration</li>
-			<li>memcache-client-forjava 2.5.1 and Java-Memcached 2.0.1,SockIOPool is default configuration,set
+			<li>xmemcached 1.10,default configuration</li>
+			<li>xmemcached 2.3.1,default configuration</li>
+			<li>memcache-client-forjava 2.5.1,SockIOPool is default configuration,set
 			compress threshold to 16K</li>
 			<li>JVM args: -server -Xmx1024m</li>
-			<li>Xmemcached and Spymemcached is nio based.So they have to set operation timeout,both are set to 3 seconds.</li>
+			<li>Xmemcached and Spymemcached is nio based.So they have to be
+			set operation timeout,they are both set to 3 seconds.</li>
 		</ul>
 		</li>
 	</ul>

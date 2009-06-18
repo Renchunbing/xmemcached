@@ -1,4 +1,4 @@
 #labels Phase-Support,RoadMap
-*version-1.1.2 *   Support noreply option for some protocols.Support integrating to spring framework.Add verbosity protocol.
+*version-1.1.2 *   Support noreply option for some protocols and integrating to spring framework.Supports weighted server.Add verbosity protocol.
 
 *version-1.2 *   Implement memcached binary protocol and weighted server

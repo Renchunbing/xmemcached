@@ -1,0 +1,14 @@
+#labels Featured
+1.Synchronous API
+
+2.Multithreaded 
+
+3.Multiple server nodes with consistent hash or standard hash.
+
+4.Use JMX to montior and control.
+
+5. Weighted server.
+
+6.Add/Remove server or change server's weight dynamically.
+
+7.Client statistics.

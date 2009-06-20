@@ -12,3 +12,5 @@
 6.Add/Remove server or change server's weight dynamically.
 
 7.Client statistics.
+
+8.Auto reconnection.

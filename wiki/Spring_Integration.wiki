@@ -1,0 +1,40 @@
+#labels Phase-Support,Integration,spring
+XMemcached supports a easy way to integrate to spring framework since version 1.1.2
+
+=Simple Config=
+{{{
+   <bean name="memcachedClient"
+		class="net.rubyeye.xmemcached.utils.XMemcachedClientFactoryBean">
+		<property name="servers">
+			<value>host1:port1 host2:port2</value>
+		</property>
+   </bean>
+}}}
+Then,you can use memcachedClient in other beans.
+
+=Whole Config=
+
+{{{
+  <bean name="memcachedClient"
+		class="net.rubyeye.xmemcached.utils.XMemcachedClientFactoryBean">
+		<property name="servers">
+			<value>host1:port1 host2:port2 host3:port3</value>
+		</property>
+		<property name="weights">
+			<list>
+				<value>1</value>
+				<value>2</value>
+				<value>3</value>
+			</list>
+		</property>
+		<property name="sessionLocator">
+			<bean class="net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator"></bean>
+		</property>
+		<property name="transcoder">
+			<bean class="net.rubyeye.xmemcached.transcoders.SerializingTranscoder" />
+		</property>
+		<property name="bufferAllocator">
+			<bean class="net.rubyeye.xmemcached.buffer.SimpleBufferAllocator"></bean>
+		</property>
+	</bean>
+}}}

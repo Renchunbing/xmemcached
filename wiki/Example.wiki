@@ -21,7 +21,7 @@ client.delete("key");
    MemcachedClient memcachedClient=builder.build();
 }}}
 
-It sets "localhost:12000" weight to 1,and "localhost:12000" weight to 3.You can change the weight dynamically through 
+It sets "localhost:12000" weight to 1,and "localhost:12000" weight to 3.You can change the weight dynamically through JMX
 {{{
    public interface XMemcachedClientMBean{
              ....

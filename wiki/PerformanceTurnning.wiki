@@ -4,18 +4,18 @@
 XMemcached对操作主要的优化手段
   * get的优化，连续的get操作将被合并成一个get操作提交，最多合并mergeFactor个命令，这个参数可以通过
 {{{
- XMemcachedClient.setMergeFactor(int)
+ XMemcachedClient.setMergeFactor(int); default is 150
 }}}
 方法设置，默认是150,不推荐设置过大的数值。get优化默认是开启的，可以通过
 {{{
- XMemcachedClient.setOptimizeMergetGet(false)
+ XMemcachedClient.setOptimizeMergetGet(false); //default is true,recommend true
 }}}
 
 关闭。
   
   * xmemcached会将连续的操作形成的ByteBuffer合并成一个大的ByteBuffer，大小接近socket的发送缓冲区大小，以最大限度地提升发送效率，这个优化默认也是开启的，可以通过
 {{{
-XMemcachedClient.setOptimizeMergeBuffer(false)
+XMemcachedClient.setOptimizeMergeBuffer(false);//default is true,recommend true
 }}}
 关闭。不推荐关闭，除非你的应用缓存的数据特别大。
   

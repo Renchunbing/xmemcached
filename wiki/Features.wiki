@@ -14,3 +14,5 @@
 7.Client statistics.
 
 8.Auto reconnection.
+
+9.Spring integration

@@ -1,3 +1,4 @@
+#labels Phase-Support,hibernate-memcached
 =Introduction=
     If you use memcached for hibernate's second level cache,you can use hiberante-memcached([http://code.google.com/p/hibernate-memcached/]).This project use spymemcached by default,xmemcached has implement it's interfaces to support it.
 
@@ -13,7 +14,7 @@
 || *Property* || *Value* ||
 ||hibernate.memcached.servers || localhost:11211 localhost:11212||
 ||ibernate.memcached.cacheTimeSeconds || 300||
-||hibernate.memcached.keyStrategy    || HashCodeKeyStrategy
+||hibernate.memcached.keyStrategy    || HashCodeKeyStrategy ||
 ||hibernate.memcached.readBufferSize ||DEFAULT_SESSION_READ_BUFF_SIZE ||
 ||hibernate.memcached.operationTimeout ||DEFAULT_OP_TIMEOUT ||
 ||hibernate.memcached.hashAlgorithm  || NATIVE_HASH,KETAMA_HASH etc.||

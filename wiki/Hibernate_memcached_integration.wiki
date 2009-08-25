@@ -14,8 +14,8 @@
 ||hibernate.memcached.servers || localhost:11211 localhost:11212||
 ||ibernate.memcached.cacheTimeSeconds || 300||
 ||hibernate.memcached.keyStrategy    || HashCodeKeyStrategy
-||hibernate.memcached.readBufferSize || MemcachedClient.DEFAULT_SESSION_READ_BUFF_SIZE ||
-||hibernate.memcached.operationTimeout || MemcachedClient.DEFAULT_OP_TIMEOUT ||
+||hibernate.memcached.readBufferSize ||DEFAULT_SESSION_READ_BUFF_SIZE ||
+||hibernate.memcached.operationTimeout ||DEFAULT_OP_TIMEOUT ||
 ||hibernate.memcached.hashAlgorithm  || NATIVE_HASH,KETAMA_HASH etc.||
 ||hibernate.memcached.commandFactory || TextCommandFactory , BinaryCommandFactory ||
 ||hiberante.memcached.sessionLocator || ArrayMemcachedSessionLocator,KetamaMemcachedSessionLocator||

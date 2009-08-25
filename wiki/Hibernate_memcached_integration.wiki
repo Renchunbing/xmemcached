@@ -5,10 +5,18 @@
 
     Most of configuration is the same with hibernate-memcached which use spymemcached(please see it's wiki page).First,you have to set memcacheClientFactory to XmemcachedClientFactory:
 
-|| *Property* || *Default* ||  
-||hibernate.memcached.memcacheClientFactory || net.rubyeye.xmemcached.utils.hibernate.XmemcachedClientFactory||
+|| *Property* || *Value* ||  
+||hibernate.memcached.memcacheClientFactory || net.rubyeye.xmemcached.utils.hibernate.XmemcachedClientFactory ||
 
 
-   The cache wide settings have some differences.Xmemcached doesn't have 
-
+   The cache wide settings have some differences.
+|| *Property* || *Value* ||
+||hibernate.memcached.servers || localhost:11211 localhost:11212||
+||ibernate.memcached.cacheTimeSeconds || 300||
+||hibernate.memcached.keyStrategy    || HashCodeKeyStrategy
+||hibernate.memcached.readBufferSize || MemcachedClient.DEFAULT_SESSION_READ_BUFF_SIZE ||
+||hibernate.memcached.operationTimeout || MemcachedClient.DEFAULT_OP_TIMEOUT ||
+||hibernate.memcached.hashAlgorithm  || NATIVE_HASH,KETAMA_HASH etc.||
+||hibernate.memcached.commandFactory || TextCommandFactory , BinaryCommandFactory ||
+||hiberante.memcached.sessionLocator || ArrayMemcachedSessionLocator,KetamaMemcachedSessionLocator||
    

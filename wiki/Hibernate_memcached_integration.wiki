@@ -4,7 +4,9 @@
 =Configuration=
 
     Most of configuration is the same with hibernate-memcached which use spymemcached(please see it's wiki page).First,you have to set memcacheClientFactory to XmemcachedClientFactory:
-|| *Property* || *Default* ||     ||hibernate.memcached.memcacheClientFactory || net.rubyeye.xmemcached.utils.hibernate.XmemcachedClientFactory ||
+
+|| *Property* || *Default* ||  
+||hibernate.memcached.memcacheClientFactory || net.rubyeye.xmemcached.utils.hibernate.XmemcachedClientFactory ||
 
 
    The cache wide settings have some differences.Xmemcached doesn't have 

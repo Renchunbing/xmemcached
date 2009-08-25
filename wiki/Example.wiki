@@ -38,7 +38,9 @@ It sets "localhost:12000" weight to 1,and "localhost:12000" weight to 3.You can 
 If you use memcached 1.4.0 or later version,you may want to use binary protocol insteadof text protocol which is used by xmemcached default.You can set it by
 {{{
    MemcachedClientBuilder builder = new    XMemcachedClientBuilder(AddrUtil.getAddresses("localhost:12000 localhost:12001"),new int[]{1,3});
-   builder.setCommandFactory(new BinaryCommandFactory());//use binary protocol
+   builder.setCommandFactory(new BinaryCommandFactory());//use binary protocol 
+   MemcachedClient memcachedClient=builder.build();
+
 }}}
 
 Then xmemcached will use binary protocol to encode/decode commands.

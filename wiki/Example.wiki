@@ -34,6 +34,15 @@ It sets "localhost:12000" weight to 1,and "localhost:12000" weight to 3.You can 
 	public void setServerWeight(String server, int weight);
    }
 }}}
+=Use binary protocol=
+If you use memcached 1.4.0 or later version,you may want to use binary protocol insteadof text protocol which is used by xmemcached default.You can set it by
+{{{
+   MemcachedClientBuilder builder = new    XMemcachedClientBuilder(AddrUtil.getAddresses("localhost:12000 localhost:12001"),new int[]{1,3});
+   builder.setCommandFactory(new BinaryCommandFactory());//use binary protocol
+}}}
+
+Then xmemcached will use binary protocol to encode/decode commands.
+
 =Add/Remove memcached servers dynamically=
 
     Xmemcached supports add or remove memcached servers dynamically through programming or JMX MBeans.Add or remove memcached servers example

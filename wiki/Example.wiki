@@ -1,6 +1,12 @@
 #labels Phase-Support,Example,Useage
 = Introduction =
-Supports all memcached text based protocols (binary protocol on the road) currently, include  get/gets、set、add、replace、delete、append、prepend、cas、multi get/gets、incr、decr、version、stats、flush_all etc.
+Supports all memcached text based protocols and binary base protocols currently, include  get/gets、set、add、replace、delete、append、prepend、cas、multi get/gets、incr、decr、version、stats、flush_all etc.
+
+=Dependencies
+  Xmemcached 1.x needs common-logging and yanf4j(version 0.70)
+
+  Xmemcached 1.2.0-RC1 needs slf4j and yanf4j(version 1.0-SNAPSHOT).
+
 =Simple Example=
 {{{
 MemcachedClient client=new XMemcachedClient("host",11211);

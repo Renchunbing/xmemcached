@@ -15,4 +15,6 @@
 
 8.Auto reconnection.
 
-9.Spring integration
+9.Spring and hibernate-memcached integration 
+
+10.Nio connection pool

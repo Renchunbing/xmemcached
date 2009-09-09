@@ -20,6 +20,7 @@ Then,you can use memcachedClient in other beans.
 		<property name="servers">
 			<value>host1:port1 host2:port2 host3:port3</value>
 		</property>
+                <!-- server's weights -->
 		<property name="weights">
 			<list>
 				<value>1</value>

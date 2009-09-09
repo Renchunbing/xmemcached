@@ -27,6 +27,10 @@ Then,you can use memcachedClient in other beans.
 				<value>3</value>
 			</list>
 		</property>
+                <property name="connectionPoolSize" value="2"></property>
+		<property name="commandFactory">
+		   <bean class="net.rubyeye.xmemcached.command.BinaryCommandFactory"></bean>
+		</property>
 		<property name="sessionLocator">
 			<bean class="net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator"></bean>
 		</property>

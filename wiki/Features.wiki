@@ -1,20 +1,22 @@
 #labels Featured
-1.Synchronous API
+1.All text based and binary based memcached protocol implementation
 
-2.Multithreaded 
+2.Synchronous API
 
-3.Multiple server nodes with consistent hash or standard hash.
+3.Multithreaded 
 
-4.Use JMX to montior and control.
+4.Multiple server nodes with consistent hash or standard hash.
 
-5. Weighted server.
+5.Use JMX to montior and control.
 
-6.Add/Remove server or change server's weight dynamically.
+6. Weighted server.
 
-7.Client statistics.
+7.Add/Remove server or change server's weight dynamically.
 
-8.Auto reconnection.
+8.Client statistics.
 
-9.Spring and hibernate-memcached integration 
+9.Auto reconnection.
 
-10.Nio connection pool
+10.Spring and hibernate-memcached integration(since 1.2.0) 
+
+11.Nio connection pool (since 1.2.0)

@@ -63,6 +63,12 @@ Then xmemcached will use binary protocol to encode/decode commands.
    client.removeServer("server1:11211 server2:11211");
 }}}
 
+=Nio connection pool=
+  In a high concurrent enviroment,you may want to pool memcached clients.But a xmemcached client has to start a reactor thread and some thread pools,if you create too many clients,the cost is very large.Xmemcached supports connection pool instreadof client pool.you can create more connections to one or more memcached servers,and these connections share the same reactor and thread pools.Note,Your application must ensure updating data is synchronized between connections which connected to the same memcached server.Seting pool size:
+{{{
+   client.setConnectionPoolSize(5); //set pool size to five.
+}}}
+
 =Using CAS=
 
    Using CASOperation instead of using gets and cas methods.Here is a simple example,start NUM threads to increase the value of key "a"

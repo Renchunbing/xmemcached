@@ -27,16 +27,21 @@ Then,you can use memcachedClient in other beans.
 				<value>3</value>
 			</list>
 		</property>
+                <!-- nio connection pool size -->
                 <property name="connectionPoolSize" value="2"></property>
-		<property name="commandFactory">
+		 <!-- Use binary protocol,default is TextCommandFactory -->
+                <property name="commandFactory">
 		   <bean class="net.rubyeye.xmemcached.command.BinaryCommandFactory"></bean>
 		</property>
+                <!-- Distributed strategy -->
 		<property name="sessionLocator">
 			<bean class="net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator"></bean>
 		</property>
+                <!-- Serializing transcoder -->
 		<property name="transcoder">
 			<bean class="net.rubyeye.xmemcached.transcoders.SerializingTranscoder" />
 		</property>
+                 <!-- ByteBuffer allocator -->
 		<property name="bufferAllocator">
 			<bean class="net.rubyeye.xmemcached.buffer.SimpleBufferAllocator"></bean>
 		</property>

@@ -17,3 +17,11 @@
   MemcachedClient mc = builder.build();
 
 }}}
+
+* Election Hash(选举散列)
+{{{
+   MemcachedClientBuilder builder = new XMemcachedClientBuilder(
+					AddrUtil.getAddresses("server1:11211 server2:11211 server3:11211"));
+  builder.setSessionLocator(new ElectionMemcachedSessionLocator());
+  MemcachedClient mc = builder.build();
+}}}

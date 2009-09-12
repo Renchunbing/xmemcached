@@ -18,7 +18,7 @@
 
 }}}
 
-* Election Hash(选举散列)
+ * Election Hash(选举散列)
 {{{
    MemcachedClientBuilder builder = new XMemcachedClientBuilder(
 					AddrUtil.getAddresses("server1:11211 server2:11211 server3:11211"));

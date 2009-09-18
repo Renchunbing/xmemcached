@@ -20,3 +20,5 @@
 10.Spring and hibernate-memcached integration(since 1.2.0) 
 
 11.Nio connection pool (since 1.2.0)
+
+12.Support kestrel (since 1.2.0)

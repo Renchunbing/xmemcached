@@ -60,7 +60,7 @@ client.delete("key");
    MemcachedClient memcachedClient=builder.build();
 }}}
 
-    关于最后一点需要补充说明，由于kestrel不支持flag，因此xmemcached在存储的数据之前加了*4个字节的flag*，如果你的全部应用都使用xmemcached，那么没有问题，如果使用其他clients，会有兼容性的问题，因此Xmemcached还允许关闭这个功能，通过
+    关于最后一点需要补充说明，由于kestrel不支持flag，因此xmemcached在存储的数据之前加了4个字节的flag，如果你的全部应用都使用xmemcached，那么没有问题，如果使用其他clients，会有兼容性的问题，因此Xmemcached还允许关闭这个功能，通过
 {{{
   client.setPrimitiveAsString(true);
 }}}

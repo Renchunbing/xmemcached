@@ -1,5 +1,6 @@
 #labels Phase-Support,使用指南,例子
-= Introduction =
+<wiki:toc max_depth="1" />
+= 简单介绍 =
 Xmemcached支持memcached所有的二进制协议（从1.2.0开始）和文本协议，并且支持对Kestrel(一个scala写的MQ)的兼容访问。
 
 =依赖包=

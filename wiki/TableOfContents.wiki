@@ -1,2 +1,2 @@
-#XMemcached wiki
 * [Example]
+* [Example_zh]

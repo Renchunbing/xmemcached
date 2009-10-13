@@ -6,7 +6,7 @@ Xmemcached支持memcached所有的二进制协议（从1.2.0开始）和文本�
 =依赖包=
   Xmemcached 1.x 需要依赖common-logging和yanf4j-0.70[http://code.google.com/p/yanf4j/downloads/list])
 
-  Xmemcached 1.2.0-stable开始及以后版本需要依赖slf4j([http://www.slf4j.org/])和yanf4j-1.0-stable
+  Xmemcached 1.2.0-stable开始及以后版本需要依赖slf4j([http://www.slf4j.org/])和yanf4j-1.0.1
 
 =简单例子=
 {{{

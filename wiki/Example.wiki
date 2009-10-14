@@ -53,11 +53,10 @@ If you use memcached 1.4.0 or later version,you may want to use binary protocol 
 Then xmemcached will use binary protocol to encode/decode commands.
 
 = Talk with Kestrel =
-    Kestrel is open source MQ server written in scala.It supports memcached text protocol,but not all compatible.For example,it does'n support "flag",so it can not store java serializable object when use many java memcached clients.XMemcached add a KestrelCommandFactory to support Kestrel,If you use it,you could have those benefit:
+    Kestrel is open source MQ server written in scala.It supports memcached text protocol,but not all compatible.For example,it does'n support "flag",you can not store java serializable object when use many java memcached clients.XMemcached add a KestrelCommandFactory to support Kestrel,If you use it,you could have those benefit:
 
   * Disable get optimiezed by default,because Kestrel doesn't support bulk get.
   * Support blocking fetch、reliable fetch and transaction
-
   * Allow to store any java serializable object to Kestrel.
 
    To use KestrelCommandFactory :
@@ -67,7 +66,7 @@ Then xmemcached will use binary protocol to encode/decode commands.
    builder.setCommandFactory(new KestrelCommandFactory());
    MemcachedClient memcachedClient=builder.build();
 }}}
-    Additional about store java serializable object,because kestrel doesn't support "flag",so XMemcached add 4-bytes as flag before stored value.If your applications all use xmemcached,it is no problem;If not,There is a compatible problem,so xmemcached allow you to disable this feature by
+    Additional about store java serializable object,because kestrel doesn't support "flag",so XMemcached add 4-bytes as flag before stored value.If your applications all use xmemcached as client,it is no problem;If not,There is a compatible problem,so xmemcached allow you to disable this feature by
 {{{
   client.setPrimitiveAsString(true);
 }}}

@@ -10,13 +10,11 @@ import net.rubyeye.xmemcached.command.Command;
 import net.rubyeye.xmemcached.exception.MemcachedException;
 import net.rubyeye.xmemcached.impl.MemcachedConnector;
 import net.rubyeye.xmemcached.impl.ReconnectRequest;
-import net.rubyeye.xmemcached.networking.MemcachedSession;
 import net.rubyeye.xmemcached.utils.Protocol;
 
 import com.google.code.juds.UnixDomainSocket;
 import com.google.code.juds.UnixDomainSocketClient;
 import com.google.code.yanf4j.config.Configuration;
-import com.google.code.yanf4j.core.Session;
 import com.google.code.yanf4j.core.impl.FutureImpl;
 
 public class UDSocketConnector extends MemcachedConnector {
@@ -42,23 +40,23 @@ public class UDSocketConnector extends MemcachedConnector {
 
 	@Override
 	public void send(Command packet) throws MemcachedException {
-		final Session session = findSessionByKey(packet.getKey());
+		final UDSocketSession session = (UDSocketSession) findSessionByKey(packet
+				.getKey());
 		if (session == null) {
 			throw new MemcachedException(
 					"There is no avriable session at this moment");
 		}
-		session.write(packet);
-		synchronized (session) {
+		session.getLock().lock();
+		try {
 			session.write(packet);
-			try {
-				((UDSocketSession) session).readFromInputStream(packet);
-			} catch (IOException e) {
-				session.close();
-				this.addToWatingQueue(new ReconnectRequest(session
-						.getRemoteSocketAddress(), 0,
-						((MemcachedSession) session).getWeight()));
-				throw new MemcachedException(e);
-			}
+			session.readFromInputStream(packet);
+		} catch (Exception e) {
+			session.close();
+			this.addToWatingQueue(new ReconnectRequest(session
+					.getRemoteSocketAddress(), 0, session.getWeight()));
+			throw new MemcachedException(e);
+		} finally {
+			session.getLock().unlock();
 		}
 
 	}

@@ -8,6 +8,8 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Future;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import net.rubyeye.xmemcached.MemcachedClient;
 import net.rubyeye.xmemcached.buffer.BufferAllocator;
@@ -30,6 +32,7 @@ public class UDSocketSession implements Session, MemcachedSession {
 	private final UDSocketAddress remotingAddress;
 	private final BufferAllocator allocator;
 	private final int weight;
+	private final Lock lock = new ReentrantLock();
 	final byte[] buffer = new byte[MemcachedClient.DEFAULT_SESSION_READ_BUFF_SIZE / 2];
 
 	public int getWeight() {
@@ -37,6 +40,10 @@ public class UDSocketSession implements Session, MemcachedSession {
 	}
 
 	private final ConcurrentHashMap<String, Object> attributes = new ConcurrentHashMap<String, Object>();
+
+	public Lock getLock() {
+		return this.lock;
+	}
 
 	public UDSocketSession(String path, int weight,
 			UnixDomainSocketClient client, BufferAllocator bufferAllocator) {

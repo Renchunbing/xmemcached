@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
     <groupId>com.googlecode</groupId>
-    <artifactId>xmemcached</artifactId>
-    <version>1.2.1-SNAPSHOT</version>
-    <name>xmemcached</name>
-    <description>Extreme performance modern memcached client for java</description>
+    <artifactId>xmemcached-uds</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <name>xmemcached-uds</name>
+    <description>Xmemcached unix domain socket branch</description>
     <url>http://code.google.com/p/xmemcached/</url>
     <packaging>jar</packaging>
 
@@ -26,17 +26,17 @@
     </licenses>
 
     <repositories>
-	    <repository>
-			<id>hibernate-memcached</id>
-			<name>hibernate-memcached</name>
-			<url>http://raykrueger.googlecode.com/svn/repository</url>
-		</repository>
-		<repository>
-			<id>yanf4j</id>
-			<name>yanf4j</name>
-			<url>http://denniszhuang.googlecode.com/svn/repository</url>
-		</repository>
-		<repository>
+        <repository>
+            <id>hibernate-memcached</id>
+            <name>hibernate-memcached</name>
+            <url>http://raykrueger.googlecode.com/svn/repository</url>
+        </repository>
+        <repository>
+            <id>yanf4j</id>
+            <name>yanf4j</name>
+            <url>http://denniszhuang.googlecode.com/svn/repository</url>
+        </repository>
+        <repository>
             <id>maven2-repository</id>
             <name>Java.net Repository for Maven</name>
             <url>http://download.java.net/maven/2/</url>
@@ -67,8 +67,8 @@
                 <version>1.8</version>
             </extension>
         </extensions>
-		<plugins>    
-			<plugin>
+        <plugins>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
                 <executions>
@@ -100,7 +100,7 @@
                 <configuration>
                     <source>1.5</source>
                     <target>1.5</target>
-					<encoding>UTF-8</encoding>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
             <plugin>
@@ -114,54 +114,42 @@
             </plugin>
          </plugins>
     </build>
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.5.6</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.5.6</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.googlecode</groupId>
-			<artifactId>yanf4j</artifactId>
-			<version>1.0.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring</artifactId>
-			<version>2.5</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.googlecode</groupId>
-			<artifactId>hibernate-memcached</artifactId>
-			<version>1.2</version>
-			<scope>provided</scope>
-		</dependency>
-	</dependencies>
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<configuration>
-					<encoding>utf-8</encoding>
-					<charset>utf-8</charset>
-					<locale>en_US</locale>
-					<excludePackageNames>net.rubyeye.xmemcached.test</excludePackageNames>
-				</configuration>
-			</plugin>
-		</plugins>
-	</reporting>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.5.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.5.6</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode</groupId>
+            <artifactId>xmemcached</artifactId>
+            <version>1.2.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <encoding>utf-8</encoding>
+                    <charset>utf-8</charset>
+                    <locale>en_US</locale>
+                    <excludePackageNames>net.rubyeye.xmemcached.test</excludePackageNames>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>

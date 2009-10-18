@@ -4,11 +4,14 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.List;
 
+import net.rubyeye.xmemcached.MemcachedSessionLocator;
 import net.rubyeye.xmemcached.XMemcachedClient;
 import net.rubyeye.xmemcached.buffer.BufferAllocator;
 import net.rubyeye.xmemcached.networking.Connector;
+import net.rubyeye.xmemcached.utils.Protocol;
 
 import com.google.code.yanf4j.config.Configuration;
+import com.google.code.yanf4j.util.SystemUtils;
 
 public class UDSocketMemcachedClient extends XMemcachedClient {
 
@@ -56,10 +59,26 @@ public class UDSocketMemcachedClient extends XMemcachedClient {
 		super(server, port);
 	}
 
+	{
+		// default pool size
+		this.connectionPoolSize = SystemUtils.getSystemThreadCount();
+	}
+
+	@Override
+	public void setConnectionPoolSize(int poolSize) {
+		if (poolSize <= 0)
+			throw new IllegalArgumentException("poolSize<=0");
+		this.connectionPoolSize = poolSize;
+		this.connector.setConnectionPoolSize(poolSize);
+	}
+
 	@Override
 	protected Connector newConnector(BufferAllocator bufferAllocator,
-			Configuration configuration) {
-		return super.newConnector(bufferAllocator, configuration);
+			Configuration configuration,
+			MemcachedSessionLocator memcachedSessionLocator, Protocol protocol,
+			int i) {
+		return new UDSocketConnector(configuration, memcachedSessionLocator,
+				bufferAllocator, protocol, i);
 	}
 
 }

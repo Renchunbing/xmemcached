@@ -1,38 +1,47 @@
 package net.rubyeye.xmemcached.uds;
 
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Future;
 
+import net.rubyeye.xmemcached.MemcachedClient;
 import net.rubyeye.xmemcached.buffer.BufferAllocator;
 import net.rubyeye.xmemcached.command.Command;
+import net.rubyeye.xmemcached.networking.MemcachedSession;
 
 import com.google.code.juds.UnixDomainSocketClient;
 import com.google.code.yanf4j.core.Session;
 import com.google.code.yanf4j.core.CodecFactory.Decoder;
 import com.google.code.yanf4j.core.CodecFactory.Encoder;
 
-public class UDSocketSession implements Session {
-	private UnixDomainSocketClient socketClient;
-	private InputStream in;
-	private DataOutputStream out;
+@SuppressWarnings("unchecked")
+public class UDSocketSession implements Session, MemcachedSession {
+	private final UnixDomainSocketClient socketClient;
+	private final InputStream in;
+	private final DataOutputStream out;
 	private volatile boolean closed;
-	private final ByteBuffer readBuffer = ByteBuffer.allocate(512 * 1024);
+	private final ByteBuffer readBuffer = ByteBuffer
+			.allocate(MemcachedClient.DEFAULT_SESSION_READ_BUFF_SIZE);
 	private final UDSocketAddress remotingAddress;
 	private final BufferAllocator allocator;
+	private final int weight;
+	final byte[] buffer = new byte[MemcachedClient.DEFAULT_SESSION_READ_BUFF_SIZE / 2];
 
-	private ConcurrentHashMap<String, Object> attributes = new ConcurrentHashMap();
+	public int getWeight() {
+		return this.weight;
+	}
 
-	public UDSocketSession(String path, UnixDomainSocketClient client,
-			BufferAllocator bufferAllocator) {
+	private final ConcurrentHashMap<String, Object> attributes = new ConcurrentHashMap<String, Object>();
+
+	public UDSocketSession(String path, int weight,
+			UnixDomainSocketClient client, BufferAllocator bufferAllocator) {
 		this.socketClient = client;
+		this.weight = weight;
 		this.in = this.socketClient.getInputStream();
 		this.out = new DataOutputStream(this.socketClient.getOutputStream());
 		this.remotingAddress = new UDSocketAddress(path);
@@ -53,7 +62,7 @@ public class UDSocketSession implements Session {
 			return;
 		closed = true;
 		this.socketClient.close();
-
+		this.attributes.clear();
 	}
 
 	public void flush() {
@@ -179,17 +188,18 @@ public class UDSocketSession implements Session {
 
 	}
 
-	final byte[] buffer = new byte[4096];
-
 	public void readFromInputStream(Command command) throws IOException {
-		while (!command.decode(null, this.readBuffer)) {
-			this.readBuffer.compact();
+		while (true) {
 			int readCount = in.read(buffer);
 			if (readCount > 0) {
 				this.readBuffer.put(buffer, 0, readCount);
 				this.readBuffer.flip();
+				if (command.decode(null, this.readBuffer))
+					break;
+				this.readBuffer.compact();
 			}
 		}
+		this.readBuffer.clear();
 
 	}
 
@@ -200,6 +210,7 @@ public class UDSocketSession implements Session {
 		final byte[] data = buffer.array();
 		try {
 			out.write(data, 0, data.length);
+			out.flush();
 		} catch (IOException e) {
 			throw new RuntimeException("Write command error", e);
 		}

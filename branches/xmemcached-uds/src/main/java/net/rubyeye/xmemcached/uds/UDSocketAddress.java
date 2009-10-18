@@ -4,6 +4,7 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 
 public class UDSocketAddress extends InetSocketAddress {
+	static final long serialVersionUID = 14968406056054605L;
 	private String path;
 
 	public String getPath() {
@@ -16,7 +17,7 @@ public class UDSocketAddress extends InetSocketAddress {
 	}
 
 	public UDSocketAddress(String path) {
-		super("localhost",1111);
+		super("localhost", 1111);
 		this.path = path;
 
 	}
@@ -34,5 +35,4 @@ public class UDSocketAddress extends InetSocketAddress {
 		super(hostname, port);
 
 	}
-
 }

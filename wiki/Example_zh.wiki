@@ -83,7 +83,10 @@ client.delete("key");
 =Nio连接池=
   Xmemcached是基于java nio的client实现，默认对一个memcached节点只有一个连接，这在通常情况下已经有非常优异的表现。但是在典型的高并发环境下,nio的单连接也会遇到性能瓶颈。因此XMemcached支持设置nio的连接池，允许建立多个连接到同一个memcached节点，但是请注意，这些连接之间是不同步的，因此你的应用需要自己保证数据更新的同步，启用连接池可以通过下面代码：
 {{{
-   client.setConnectionPoolSize(5); //set pool size to five.
+  MemcachedClientBuilder builder = new    XMemcachedClientBuilder(AddrUtil.getAddresses("localhost:12000"));
+
+  builder.setConnectionPoolSize(5);
+
 }}}
 
 =使用CAS原子更新=

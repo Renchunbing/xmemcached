@@ -88,7 +88,7 @@ Set it true means xmemcached will store all java primitive type as string.
 =Nio connection pool=
   In a high concurrent enviroment,you may want to pool memcached clients.But a xmemcached client has to start a reactor thread and some thread pools,if you create too many clients,the cost is very large.Xmemcached supports connection pool instreadof client pool.you can create more connections to one or more memcached servers,and these connections share the same reactor and thread pools.Note,Your application must ensure updating data is synchronized between connections which connected to the same memcached server.Seting pool size:
 {{{
-    MemcachedClientBuilder builder = new       XMemcachedClientBuilder(AddrUtil.getAddresses("localhost:12000"));
+  MemcachedClientBuilder builder = new       XMemcachedClientBuilder(AddrUtil.getAddresses("localhost:12000"));
 
   builder.setConnectionPoolSize(5); //set connection pool size to five
 }}}

@@ -17,6 +17,9 @@ client.set("key",3600,someObject);
 //从memcached获取key对应的value
 Object someObject=client.get("key");
 
+//从memcached获取key对应的value,操作超时2秒
+someObject=client.get("key",2000);
+
 //删除value
 client.delete("key");
 

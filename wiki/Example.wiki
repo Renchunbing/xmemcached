@@ -16,6 +16,8 @@ MemcachedClient client=new XMemcachedClient("host",11211);
 client.set("key",3600,someObject);
 //Retrieve a value.(synchronously).
 Object someObject=client.get("key");
+//Retrieve a value.(synchronously),operation timeout two seconds.
+someObject=client.get("key",2000);
 
 //delete value
 client.delete("key");

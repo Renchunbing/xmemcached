@@ -51,34 +51,31 @@ XMemcached是基于java nio框架yanf4j实现的，因此在实现上结构相�
 
     对于用户来说，最主要的功能是存取数据，假设我们有一个memcached节点IP地址或者域名是host，端口是11211，一个简单的存取数据的例子如下：
 {{{
-                MemcachedClientBuilder builder = new XMemcachedClientBuilder(
+    MemcachedClientBuilder builder = new XMemcachedClientBuilder(
 					AddrUtil.getAddresses(“localhost:11211”));
-                MemcachedClient memcachedClient = builder.build();
-		try {
-			memcachedClient.set("hello", 0, "Hello,xmemcached");
-
-			String value = memcachedClient.get("hello");
-			System.out.println("hello=" + value);
-
-			memcachedClient.delete("hello");
-			value = memcachedClient.get("hello");
-			System.out.println("hello=" + value);
-
-		} catch (MemcachedException e) {
-			System.err.println("MemcachedClient operation fail");
-			e.printStackTrace();
-		} catch (TimeoutException e) {
-			System.err.println("MemcachedClient operation timeout");
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// ignore
-		}
-		try {
-                        //close memcached client
-         		memcachedClient.shutdown();
-		} catch (IOException e) {
-			System.err.println("Shutdown MemcachedClient fail");
-			e.printStackTrace();
-		}
+    MemcachedClient memcachedClient = builder.build();
+    try {
+		memcachedClient.set("hello", 0, "Hello,xmemcached");
+		String value = memcachedClient.get("hello");
+		System.out.println("hello=" + value);
+		memcachedClient.delete("hello");
+		value = memcachedClient.get("hello");
+		System.out.println("hello=" + value);
+    } catch (MemcachedException e) {
+		System.err.println("MemcachedClient operation fail");
+		e.printStackTrace();
+    } catch (TimeoutException e) {
+		System.err.println("MemcachedClient operation timeout");
+		e.printStackTrace();
+    } catch (InterruptedException e) {
+		// ignore
+    }
+    try {
+              //close memcached client
+      		memcachedClient.shutdown();
+    } catch (IOException e) {
+        	System.err.println("Shutdown MemcachedClient fail");
+		e.printStackTrace();
+    }
 
 }}}

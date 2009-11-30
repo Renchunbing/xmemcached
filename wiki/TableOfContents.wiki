@@ -2,7 +2,7 @@
 
 * [Getting_Started]
 
-* [Example_zh]
+* [Getting_Started_zh]
 
 * [memcached_distributed]
 

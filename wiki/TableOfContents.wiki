@@ -1,6 +1,6 @@
 * [Features]
 
-* [Example]
+* [Getting_Started]
 
 * [Example_zh]
 

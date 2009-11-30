@@ -50,10 +50,10 @@ XMemcached是基于java nio框架yanf4j实现的，因此在实现上结构相�
 == 简单例子 ==
 
     对于用户来说，最主要的功能是存取数据，假设我们有一个memcached节点IP地址或者域名是host，端口是11211，一个简单的存取数据的例子如下：
-{{
-   MemcachedClientBuilder builder = new XMemcachedClientBuilder(
+{{{
+                MemcachedClientBuilder builder = new XMemcachedClientBuilder(
 					AddrUtil.getAddresses(“localhost:11211”));
-MemcachedClient memcachedClient = builder.build();
+                MemcachedClient memcachedClient = builder.build();
 		try {
 			memcachedClient.set("hello", 0, "Hello,xmemcached");
 
@@ -74,10 +74,11 @@ MemcachedClient memcachedClient = builder.build();
 			// ignore
 		}
 		try {
-			memcachedClient.shutdown();
+                        //close memcached client
+         		memcachedClient.shutdown();
 		} catch (IOException e) {
 			System.err.println("Shutdown MemcachedClient fail");
 			e.printStackTrace();
 		}
 
-}}
+}}}

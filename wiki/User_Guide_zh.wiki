@@ -143,3 +143,30 @@ CASOpertion接口只有两个方法，一个是设置最大尝试次数的getMax
   client.deleteWithNoReply(“hello”);
 
 }}}
+
+首先存储了hello对应的world字符串，然后调用add和replace方法去尝试添加和替换，因为数据已经存在，因此add会失败，同样replace在数据存在的情况才会成功，也就是将hello对应的数据更新为dennis，然后通过append和prepend方法在dennis前后加上了字符串hello和good，因此通过get返回的结果是hello dennis good。而删除数据则是通过deleteWithNoReply方法，这个方法删除数据并且告诉memcached不用返回应答，因此这个方法不会等待应答直接返回，特别适合于批量处理；同样地，set、add、replace等方法也有相应的withNoReply重载版本，具体请看API文档。
+
+下面这个例子展现了incr/decr操作的使用，两个操作类似Java中的原子类如AtomicIntger，用于原子递增或者递减变量数值：
+{{{
+ assert(1==this.memcachedClient.incr("a", 5, 1));
+ assert(6==this.memcachedClient.incr("a", 5));
+ assert(10==this.memcachedClient.incr("a", 4));
+ assert(9==this.memcachedClient.decr("a", 1));
+ assert(7==this.memcachedClient.deccr("a", 2));
+
+}}}
+
+incr和decr都有三个参数的方法，第一个参数指定递增的key名称，第二个参数指定递增的幅度大小，第三个参数指定当key不存在的情况下的初始值。两个参数的重载方法省略了第三个参数，默认指定为0
+
+== 查看统计信息 ==
+Memcached提供了统计协议用于查看统计信息：
+{{{
+   Map<InetSocketAddress,Map<String,String>> result=client.getStats();
+}}}
+
+getStats方法返回一个map，其中存储了所有已经连接并且有效的memcached节点返回的统计信息，你也可以统计具体的项目，如统计items项目：
+{{{
+   Map<InetSocketAddress,Map<String,String>> result=client.getStatsByItem("items");
+}}}
+
+只要向getStatsByItem传入需要统计的项目名称即可。

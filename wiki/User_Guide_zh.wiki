@@ -4,9 +4,9 @@
 
 = XMemcached简介 =
 
-    XMemcached是一个新java memcached client。也许你还不知道memcached是什么？可以先看看这里。简单来说，Memcached 是一个高性能的分布式内存对象的key-value缓存系统，用于动态Web应用以减轻数据库负载，现在也有很多人将它作为内存式数据库在使用，memcached通过它的自定义协议与客户端交互，而XMemcached就是它的一个java客户端实现。
+XMemcached是一个新java memcached client。也许你还不知道memcached是什么？可以先看看这里。简单来说，Memcached 是一个高性能的分布式内存对象的key-value缓存系统，用于动态Web应用以减轻数据库负载，现在也有很多人将它作为内存式数据库在使用，memcached通过它的自定义协议与客户端交互，而XMemcached就是它的一个java客户端实现。
 
-    Memcached的java客户端已经存在两个了：官方提供的基于传统阻塞io由Greg Whalin维护的客户端、Dustin Sallings实现的基于java nio的Spymemcached。另外还有一些在此基础上的改进版本。相比于这些客户端，XMemcached有什么优点呢？或者说，它的主要特性有哪些？
+Memcached的java客户端已经存在两个了：官方提供的基于传统阻塞io由Greg Whalin维护的客户端、Dustin Sallings实现的基于java nio的Spymemcached。另外还有一些在此基础上的改进版本。相比于这些客户端，XMemcached有什么优点呢？或者说，它的主要特性有哪些？
 
 
 = XMemcached的主要特性 =

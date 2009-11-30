@@ -13,18 +13,18 @@
 
 *  高性能。XMemcached同样是基于java nio的客户端，java nio相比于传统阻塞io模型来说，有效率高（特别在高并发下）和资源耗费相对较少的优点。传统阻塞IO为了提高效率，需要创建一定数量的连接形成连接池，而nio仅需要一个连接即可（当然,nio也是可以做池化处理），相对来说减少了线程创建和切换的开销，这一点在高并发下特别明显。因此XMemcached与Spymemcached在性能都非常优秀，在某些方面（存储的数据比较小的情况下）Xmemcached比Spymemcached的表现更为优秀，具体可以看这个Java Memcached Clients Benchmark。
 
-* 支持完整的协议。Xmemcached支持所有的memcached协议，包括1.4.0开始使用的二进制协议。
+*  支持完整的协议。Xmemcached支持所有的memcached协议，包括1.4.0开始使用的二进制协议。
 
-* 支持客户端分布。Memcached的分布只能通过客户端来实现，XMemcached实现了此功能，并且提供了一致性哈希(consistent hash)算法的实现。
+*  支持客户端分布。Memcached的分布只能通过客户端来实现，XMemcached实现了此功能，并且提供了一致性哈希(consistent hash)算法的实现。
 
-* 允许设置节点权重。XMemcached允许通过设置节点的权重来调节memcached的负载，设置的权重越高，该memcached节点存储的数据将越多，所承受的压力越大。
+*  允许设置节点权重。XMemcached允许通过设置节点的权重来调节memcached的负载，设置的权重越高，该memcached节点存储的数据将越多，所承受的压力越大。
 
-*动态增删节点。XMemcached允许通过JMX或者代码编程实现节点的动态添加或者移除，方便用户扩展和替换节点等。
+*  动态增删节点。XMemcached允许通过JMX或者代码编程实现节点的动态添加或者移除，方便用户扩展和替换节点等。
 
-* 支持JMX。XMemcached通过JMX暴露的一些接口，支持client本身的监控和调整，允许动态设置调优参数、查看统计数据、动态增删节点等。
+*  支持JMX。XMemcached通过JMX暴露的一些接口，支持client本身的监控和调整，允许动态设置调优参数、查看统计数据、动态增删节点等。
 
-* 与Spring框架和Hibernate-memcached的集成。鉴于很多项目已经使用Spring作为IOC容器，因此XMemcached也提供了对Spring框架的集成支持。Hibernate-memcached是一个允许将memcached作为hibernate的二级缓存的开源项目，默认是使用Spymemcached，Xmemcached提供了对这个项目的支持，允许替换Spymemcached.
+*  与Spring框架和Hibernate-memcached的集成。鉴于很多项目已经使用Spring作为IOC容器，因此XMemcached也提供了对Spring框架的集成支持。Hibernate-memcached是一个允许将memcached作为hibernate的二级缓存的开源项目，默认是使用Spymemcached，Xmemcached提供了对这个项目的支持，允许替换Spymemcached.
 
-* 客户端连接池。刚才已经提到java nio通常对一个memcached节点使用一个连接，而XMemcached同样提供了设置连接池的功能，对同一个memcached可以创建N个连接组成连接池来提高客户端在高并发环境下的表现，而这一切对使用者来说却是透明的。启用连接池的前提条件是保证数据之间的独立性或者数据更新的同步，对同一个节点的各个连接之间是没有做更新同步的，因此应用需要保证数据之间是相互独立的或者全部采用CAS更新来保证原子性。
+*  客户端连接池。刚才已经提到java nio通常对一个memcached节点使用一个连接，而XMemcached同样提供了设置连接池的功能，对同一个memcached可以创建N个连接组成连接池来提高客户端在高并发环境下的表现，而这一切对使用者来说却是透明的。启用连接池的前提条件是保证数据之间的独立性或者数据更新的同步，对同一个节点的各个连接之间是没有做更新同步的，因此应用需要保证数据之间是相互独立的或者全部采用CAS更新来保证原子性。
 
-* 可扩展性。XMemcached是基于java nio框架yanf4j实现的，因此在实现上结构相对清楚，分层比较明晰，下面是XMemcached的主要类的UML图。
+*  可扩展性。XMemcached是基于java nio框架yanf4j实现的，因此在实现上结构相对清楚，分层比较明晰，下面是XMemcached的主要类的UML图。

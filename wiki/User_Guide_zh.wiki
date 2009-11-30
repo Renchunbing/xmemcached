@@ -88,3 +88,58 @@ XMemcached是基于java nio框架yanf4j实现的，因此在实现上结构相�
 }}}
 
 就是等待3秒超时，如果3秒超时就跑出TimeutException，用户需要自己处理这个异常。因为等待是通过调用CountDownLatch.await(timeout)方法，因此用户还需要处理中断异常InterruptException。最后的MemcachedException表示Xmemcached内部发生的异常，如解码编码错误、网络断开等等异常情况。
+
+
+== CAS操作 ==
+
+Memcached是通过cas协议实现原子更新，所谓原子更新就是compare and set，原理类似乐观锁，每次请求存储某个数据同时要附带一个cas值，memcached比对这个cas值与当前存储数据的cas值是否相等，如果相等就让新的数据覆盖老的数据，如果不相等就认为更新失败，这在并发环境下特别有用。XMemcached提供了对CAS协议的支持（无论是文本协议还是二进制协议），CAS协议其实是分为两个步骤：获取CAS值和尝试更新，因此一个典型的使用场景如下：
+{{{
+  GetsResponse<Integer> result = client.gets("a");
+  long cas = result.getCas(); 
+  //尝试将a的值更新为2
+  if (!client.cas("a", 0, 2, cas)) {
+	System.err.println("cas error");
+   }
+
+}}}
+首先通过gets方法获取一个GetsResponse，此对象包装了存储的数据和cas值，然后通过cas方法尝试原子更新，如果失败打印”cas error”。显然，这样的方式很繁琐，并且如果你想尝试多少次原子更新就需要一个循环来包装这一段代码，因此XMemcached提供了一个*CASOperation*接口包装了这部分操作，允许你尝试N次去原子更新某个key存储的数据，无需显式地调用gets获取cas值,上面的代码简化为:
+{{{
+ client.cas("a", 0, new CASOperation<Integer>() {
+         		public int getMaxTries() {
+				return 1;
+			}
+
+			public Integer getNewValue(long currentCAS, Integer currentValue) {
+					return 2;
+			}
+	});
+
+}}}
+
+CASOpertion接口只有两个方法，一个是设置最大尝试次数的getMaxTries方法，这里是尝试一次，如果尝试超过这个次数没有更新成功将抛出一个TimeoutException，如果你想无限尝试（理论上），可以将返回值设定为Integer.MAX_VALUE；另一个方法是根据当前获得的GetsResponse来决定更新数据的getNewValue方法，如果更新成功，这个方法返回的值将存储成功，这个方法的两个参数是最新一次gets返回的GetsResponse结果。
+
+== 更全面的例子 ==
+
+一些更全面的例子，展现了MemcachedClient接口的主要方法：
+
+{{{
+  MemcachedClientBuilder builder = new XMemcachedClientBuilder(
+					AddrUtil.getAddresses(“localhost:12000”));
+  MemcachedClient client = builder.build();
+			client.flushAll();
+  if (!client.set("hello", 0, "world")) {
+		System.err.println("set error");
+  }
+  if (client.add("hello", 0, "dennis")) {
+		System.err.println("Add error,key is existed");
+  }
+  if (!client.replace("hello", 0, "dennis")) {
+		System.err.println("replace error");
+  }
+  client.append("hello", " good");
+  client.prepend("hello", "hello ");
+  String name = client.get("hello", new StringTranscoder());
+  System.out.println(name);
+  client.deleteWithNoReply(“hello”);
+
+}}}

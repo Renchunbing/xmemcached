@@ -42,3 +42,42 @@ XMemcached通过JMX暴露的一些接口，支持client本身的监控和调整�
 ==  可扩展性 ==
 
 XMemcached是基于java nio框架yanf4j实现的，因此在实现上结构相对清楚，分层比较明晰，下面是XMemcached的主要类的UML图。
+
+= 使用指南 = 
+
+在简单介绍完XMemcached的主要特性之后，我们将进入XMemcached的使用环节，这里将按照从简单到复杂的顺序讲解一些例子，以方便用户深入了解XMemcached的使用。
+
+== 简单例子 ==
+
+    对于用户来说，最主要的功能是存取数据，假设我们有一个memcached节点IP地址或者域名是host，端口是11211，一个简单的存取数据的例子如下：
+{{
+   MemcachedClientBuilder builder = new XMemcachedClientBuilder(
+					AddrUtil.getAddresses(“localhost:11211”));
+MemcachedClient memcachedClient = builder.build();
+		try {
+			memcachedClient.set("hello", 0, "Hello,xmemcached");
+
+			String value = memcachedClient.get("hello");
+			System.out.println("hello=" + value);
+
+			memcachedClient.delete("hello");
+			value = memcachedClient.get("hello");
+			System.out.println("hello=" + value);
+
+		} catch (MemcachedException e) {
+			System.err.println("MemcachedClient operation fail");
+			e.printStackTrace();
+		} catch (TimeoutException e) {
+			System.err.println("MemcachedClient operation timeout");
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// ignore
+		}
+		try {
+			memcachedClient.shutdown();
+		} catch (IOException e) {
+			System.err.println("Shutdown MemcachedClient fail");
+			e.printStackTrace();
+		}
+
+}}

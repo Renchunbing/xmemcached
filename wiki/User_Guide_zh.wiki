@@ -1,6 +1,6 @@
 #summary 用户指南
 #labels Phase-Support,UserGuide,用户指南
-<wiki:toc max_depth="2" />
+<wiki:toc max_depth="3" />
 
 = XMemcached简介 =
 
@@ -177,4 +177,53 @@ getStats方法返回一个map，其中存储了所有已经连接并且有效的
 
 == 高级主题 ==
 
-TODO
+=== 与Spring框架集成 ===
+
+通过XMemcachedClientFactoryBean类，即可与spring框架集成，简单的配置如下：
+
+{{{
+<bean name="memcachedClient"
+                class="net.rubyeye.xmemcached.utils.XMemcachedClientFactoryBean" destroy-method="shutdown">
+                <property name="servers">
+                        <value>host1:port1 host2:port2</value>
+                </property>
+   </bean>
+}}}
+
+那么你就可以在需要使用MemcachedClient的地方引用这个bean.
+
+更完整的配置例子，设置协议类型、一致性哈希、权重、连接池大小，具体请看注释：
+{{{
+<bean name="memcachedClient"
+                class="net.rubyeye.xmemcached.utils.XMemcachedClientFactoryBean" destroy-method="shutdown">
+                <property name="servers">
+                        <value>host1:port1 host2:port2 host3:port3</value>
+                </property>
+                <!-- server's weights -->
+                <property name="weights">
+                        <list>
+                                <value>1</value>
+                                <value>2</value>
+                                <value>3</value>
+                        </list>
+                </property>
+                <!-- nio connection pool size -->
+                <property name="connectionPoolSize" value="2"></property>
+                 <!-- Use binary protocol,default is TextCommandFactory -->
+                <property name="commandFactory">
+                   <bean class="net.rubyeye.xmemcached.command.BinaryCommandFactory"></bean>
+                </property>
+                <!-- Distributed strategy -->
+                <property name="sessionLocator">
+                        <bean class="net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator"></bean>
+                </property>
+                <!-- Serializing transcoder -->
+                <property name="transcoder">
+                        <bean class="net.rubyeye.xmemcached.transcoders.SerializingTranscoder" />
+                </property>
+                 <!-- ByteBuffer allocator -->
+                <property name="bufferAllocator">
+                        <bean class="net.rubyeye.xmemcached.buffer.SimpleBufferAllocator"></bean>
+                </property>
+        </bean>
+}}}

@@ -239,3 +239,65 @@ getStats方法返回一个map，其中存储了所有已经连接并且有效的
 
 ||transcoder || 序列化转换器，默认使用net.rubyeye.xmemcached.transcoders.SerializingTranscoder，更多选项参见javadoc ||
 || bufferAllocator || IoBuffer分配器，默认为net.rubyeye.xmemcached.buffer.SimpleBufferAllocator，可选CachedBufferAllocator(不推荐) ||
+
+=== 设置节点权重 ===
+
+如果是通过spring配置，请看上一节，如果需要编程设置，通过下面代码：
+{{{
+ MemcachedClientBuilder builder = new     
+XMemcachedClientBuilder(AddrUtil.getAddresses("localhost:12000 localhost:12001"),new int[]{1,3});
+   MemcachedClient memcachedClient=builder.build();
+}}}
+
+传入一个int数组，里面的元素就是节点对应的权重值，比如这里设置"localhost:12000"节点的权重为1，而"localhost:12001"的权重为3。注意，xmemcached的权重是通过创建更多是连接来实现的，如果权重为3，那么xmemcached将创建3个连接到该memcached节点，这些连接之间的更新并非同步，这一点需要应用自己注意。
+
+改变节点权重，可以通过setServerWeight方法：
+{{{
+ public interface XMemcachedClientMBean{
+             ....
+         /**
+         * Set a memcached server's weight
+         * 
+         * @param server
+         * @param weight
+         */
+        public void setServerWeight(String server, int weight);
+   }
+}}}
+
+=== 使用二进制协议 ===
+
+如果使用spring配置，请参见与spring集成一节。
+
+Memcached 1.4开始正式启用二进制协议，xmemcached 1.2开始支持二进制协议，启用这一特性也非常简单，设置相应的CommandFactory即可：
+{{{
+MemcachedClientBuilder builder = new    XMemcachedClientBuilder(AddrUtil.getAddresses("localhost:12000 localhost:12001"),new int[]{1,3});
+   builder.setCommandFactory(new BinaryCommandFactory());//use binary protocol 
+   MemcachedClient memcachedClient=builder.build();
+}}}
+
+默认使用的TextCommandFactory，也就是文本协议。
+
+=== JMX支持 ===
+
+可以通过JMX查看xmemcached的状态，在jvm启动参数中添加：
+{{{
+ java -Dxmemcached.jmx.enable=true
+}}}
+即可通过JMX监控xmemcached状态，xmemcached通过RMI暴露服务接口：
+{{{
+ service:jmx:rmi:///jndi/rmi://[host]:7077/xmemcachedServer 
+}}}
+
+提供的MBean包括:
+|| MBean || 描述 ||
+||net.rubyeye.xmemcached.monitor.StatisticsHandlerMBean || 用于查看统计信息 ||
+||net.rubyeye.xmemcached.impl.OptimizerMBean || 用于调整性能参数 ||
+||net.rubyeye.xmemcached.XMemcachedClientMBean ||动态添加或者删除节点，查看有效服务器等信息||
+
+JMX的更多选项:
+|| 选项 || 描述||
+||-Dxmemcached.rmi.port || RMI端口 ||
+||-Dxmemcached.rmi.name || RMI服务名 ||
+
+

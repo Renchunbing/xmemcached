@@ -234,4 +234,8 @@ getStats方法返回一个map，其中存储了所有已经连接并且有效的
 || servers || memcached节点列表，形如host1:port1 host2:port2的字符串 ||
 ||weights ||与servers对应的节点的权重，权重越高，连接数越多 ||
 || connectionPoolSize || nio连接池大小，默认为1  ||
-||commandFactory ||协议工厂，net.rubyeye.xmemcached.command.BinaryCommandFactory,net.rubyeye.xmemcached.command.TextCommandFactory,net.rubyeye.xmemcached.command.KestrelCommandFactory ||
+||commandFactory ||协议工厂，net.rubyeye.xmemcached.command.BinaryCommandFactory,TextCommandFactory(默认),KestrelCommandFactory||
+|| sessionLocator || 分布策略，一致性哈希net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator或者ArraySessionLocator(默认) ||
+
+||transcoder || 序列化转换器，默认使用net.rubyeye.xmemcached.transcoders.SerializingTranscoder，更多选项参见javadoc ||
+|| bufferAllocator || IoBuffer分配器，默认为net.rubyeye.xmemcached.buffer.SimpleBufferAllocator，可选CachedBufferAllocator(不推荐) ||

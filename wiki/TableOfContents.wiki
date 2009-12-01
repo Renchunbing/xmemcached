@@ -4,6 +4,8 @@
 
 * [Getting_Started_zh]
 
+* [User_Guide_zh]
+
 * [memcached_distributed]
 
 * [Spring_Integration]

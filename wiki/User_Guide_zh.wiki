@@ -325,9 +325,9 @@ Xmemcached是基于java nio的client实现，默认对一个memcached节点只�
 
 Kestrel是twitter开源的一个scala写的简单高效MQ，它支持 memcached文本协议，但是并不完全兼容，例如它不支持flag，导致很多利用flag做序列化的客户端无法正常运作。因此Xmemcached特意提供了KestrelCommandFactory?用于支持Kestrel。使用KestrelCommandFactory?即可拥有如下好处： 
 
-* 默认关闭get优化，因为kestrel不支持bulk get；
-* 支持kestrel的阻塞获取和可靠获取；
-* 允许向kestrel存储任意java序列化类型。设置KestrelCommandFactory:
+*  默认关闭get优化，因为kestrel不支持bulk get；
+*  支持kestrel的阻塞获取和可靠获取；
+*  允许向kestrel存储任意java序列化类型。设置KestrelCommandFactory:
 
 {{{
  MemcachedClientBuilder builder = new    XMemcachedClientBuilder(AddrUtil.getAddresses("localhost:12000 localhost:12001"),new int[]{1,3});

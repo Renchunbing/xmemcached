@@ -325,11 +325,11 @@ Xmemcached是基于java nio的client实现，默认对一个memcached节点只�
 
 Kestrel是twitter开源的一个scala写的简单高效MQ，它支持 memcached文本协议，但是并不完全兼容，例如它不支持flag，导致很多利用flag做序列化的客户端无法正常运作。因此Xmemcached特意提供了KestrelCommandFactory?用于支持Kestrel。使用KestrelCommandFactory?即可拥有如下好处： 
 
-*  默认关闭get优化，因为kestrel不支持bulk get；
+*默认关闭get优化，因为kestrel不支持bulk get；
 
-*  支持kestrel的阻塞获取和可靠获取；
+*支持kestrel的阻塞获取和可靠获取；
 
-*  允许向kestrel存储任意java序列化类型。设置KestrelCommandFactory:
+*允许向kestrel存储任意java序列化类型。设置KestrelCommandFactory:
 
 {{{
  MemcachedClientBuilder builder = new    XMemcachedClientBuilder(AddrUtil.getAddresses("localhost:12000 localhost:12001"),new int[]{1,3});
@@ -346,7 +346,7 @@ client.setPrimitiveAsString(true);
 
 === 压缩、sanitizeKeys等杂项 ===
 
-*  设置序列化后的数据压缩，memcached存储大数据的效率是比较低的，当数据比较大的时候xmemcached会帮你压缩在存储，取出来的时候自动解压并反序列化，这个大小阀值默认是16K，可以通过Transcoder接口的setCompressionThreshold(1.2.1引入)方法修改阀值，比如设置为1K：
+*设置序列化后的数据压缩，memcached存储大数据的效率是比较低的，当数据比较大的时候xmemcached会帮你压缩在存储，取出来的时候自动解压并反序列化，这个大小阀值默认是16K，可以通过Transcoder接口的setCompressionThreshold(1.2.1引入)方法修改阀值，比如设置为1K：
 {{{
 memcachedClient.getTranscoder()).setCompressionThreshold(1024);
 }}}
@@ -356,12 +356,12 @@ memcachedClient.getTranscoder()).setCompressionThreshold(1024);
  ((SerializingTranscoder)memcachedClient.getTranscoder()).setCompressionThreshold(1024);
 }}}
 
-*  XMemcached的序列化转换器在序列化数值类型的时候有个特殊处理，如果前面N个字节都是0，那么将会去除这些0，缩减后的数据将更小，例如数字3序列化是0x0003，那么前面3个0将去除掉成一个字节0x3。反序列化的时候将自动在前面根据数值类型补0。这一特性默认是开启的，如果考虑到与其他client兼容的话需要关闭此特性可以通过：
+*XMemcached的序列化转换器在序列化数值类型的时候有个特殊处理，如果前面N个字节都是0，那么将会去除这些0，缩减后的数据将更小，例如数字3序列化是0x0003，那么前面3个0将去除掉成一个字节0x3。反序列化的时候将自动在前面根据数值类型补0。这一特性默认是开启的，如果考虑到与其他client兼容的话需要关闭此特性可以通过：
 {{{
 memcachedClient.getTranscoder()).setPackZeros(false);
 }}}
 
-*  sanitizeKeys，在官方客户端有提供一个sanitizeKeys选项，当选择用URL当key的时候，MemcachedClient会自动将URL encode再存储。默认是关闭的，想启用可以通过：
+*sanitizeKeys，在官方客户端有提供一个sanitizeKeys选项，当选择用URL当key的时候，MemcachedClient会自动将URL encode再存储。默认是关闭的，想启用可以通过：
 {{{
  memcachedClient.setSanitizeKeys(true);
 }}}

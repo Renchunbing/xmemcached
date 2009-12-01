@@ -344,6 +344,26 @@ client.setPrimitiveAsString(true);
 
 设置为true后，原生类型都将存储为字符串，而序列化类型将无法存储了。 
 
+=== 与Hibernate-memcached集成 ===
+
+大多数配置与采用spymemcahed一样，具体请看hibernate-memcached的wiki页。如果使用
+xmemcached，首先需要将memcacheClientFactory 设置为XmemcachedClientFactory。
+
+|| *Property* || *Value* ||  
+||hibernate.memcached.memcacheClientFactory || net.rubyeye.xmemcached.utils.hibernate.XmemcachedClientFactory ||
+
+
+其他一般选项有很大不同：
+|| *Property* || *Value* ||
+||hibernate.memcached.servers || localhost:11211 localhost:11212||
+||ibernate.memcached.cacheTimeSeconds || 300||
+||hibernate.memcached.keyStrategy    || HashCodeKeyStrategy ||
+||hibernate.memcached.readBufferSize ||DEFAULT_SESSION_READ_BUFF_SIZE ||
+||hibernate.memcached.operationTimeout ||DEFAULT_OP_TIMEOUT ||
+||hibernate.memcached.hashAlgorithm  || NATIVE_HASH,KETAMA_HASH etc.||
+||hibernate.memcached.commandFactory || TextCommandFactory , BinaryCommandFactory ||
+||hiberante.memcached.sessionLocator || ArrayMemcachedSessionLocator,KetamaMemcachedSessionLocator||
+
 === 压缩、sanitizeKeys等杂项 ===
 
 ==== 数据压缩 ====

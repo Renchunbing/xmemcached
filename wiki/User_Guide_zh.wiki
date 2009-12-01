@@ -357,12 +357,14 @@ memcachedClient.getTranscoder()).setCompressionThreshold(1024);
 {{{
  ((SerializingTranscoder)memcachedClient.getTranscoder()).setCompressionThreshold(1024);
 }}}
-==== PackZeros ==== 
+
+==== PackZeros ====
 
 XMemcached的序列化转换器在序列化数值类型的时候有个特殊处理，如果前面N个字节都是0，那么将会去除这些0，缩减后的数据将更小，例如数字3序列化是0x0003，那么前面3个0将去除掉成一个字节0x3。反序列化的时候将自动在前面根据数值类型补0。这一特性默认是开启的，如果考虑到与其他client兼容的话需要关闭此特性可以通过：
 {{{
 memcachedClient.getTranscoder()).setPackZeros(false);
 }}}
+
 ==== sanitizeKeys ====
 
 在官方客户端有提供一个sanitizeKeys选项，当选择用URL当key的时候，MemcachedClient会自动将URL encode再存储。默认是关闭的，想启用可以通过：

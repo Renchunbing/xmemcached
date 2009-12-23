@@ -60,7 +60,7 @@ In fact,xmemcached has another way to intergrate to springframework through XMem
 
 {{{
    <bean name="memcachedClientBuilder" class="net.rubyeye.xmemcached.XMemcachedClientBuilder">
-                <! XMemcachedClientBuilder have two arguments.First is server list,and second is weights array. -->
+                <!-- XMemcachedClientBuilder have two arguments.First is server list,and second is weights array. -->
 		<constructor-arg>
 			<list>
 				<bean class="java.net.InetSocketAddress">
@@ -98,7 +98,7 @@ In fact,xmemcached has another way to intergrate to springframework through XMem
 			<bean class="net.rubyeye.xmemcached.transcoders.SerializingTranscoder" />
 		</property>
 	</bean>
-        <! Use factory bean to build memcached client -->
+        <!-- Use factory bean to build memcached client -->
 	<bean name="memcachedClient3" factory-bean="memcachedClientBuilder"
 		factory-method="build" />
 }}}

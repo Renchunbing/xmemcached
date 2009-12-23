@@ -240,6 +240,54 @@ getStats方法返回一个map，其中存储了所有已经连接并且有效的
 ||transcoder || 序列化转换器，默认使用net.rubyeye.xmemcached.transcoders.SerializingTranscoder，更多选项参见javadoc ||
 || bufferAllocator || IoBuffer分配器，默认为net.rubyeye.xmemcached.buffer.SimpleBufferAllocator，可选CachedBufferAllocator(不推荐) ||
 
+==== Spring 3.0和Builder配置 ====
+
+Spring 3.0修改了查找destroy method的方式，因此如果还是采用上面的配置来集成xmemcached话，会在启动的时候抛出一个异常，信息类似“Couldn't find a destroy method named 'shutdown' on bean”，这种情况下xmemcached就无法正常工作，spring的IOC容器也无法正常启动。有没有解决办法呢？答案是有的，暂时可以通过XmemcachedClientBuilder的工厂方法方式来创建MemcachedClient，也就是通过factory-bean加上factory-method指定的方式，一个示范配置如下:
+{{{
+   <bean name="memcachedClientBuilder" class="net.rubyeye.xmemcached.XMemcachedClientBuilder">
+                <!-- XMemcachedClientBuilder have two arguments.First is server list,and second is weights array. -->
+                <constructor-arg>
+                        <list>
+                                <bean class="java.net.InetSocketAddress">
+                                        <constructor-arg>
+                                                <value>localhost</value>
+                                        </constructor-arg>
+                                        <constructor-arg>
+                                                <value>12000</value>
+                                        </constructor-arg>
+                                </bean>
+                                <bean class="java.net.InetSocketAddress">
+                                        <constructor-arg>
+                                                <value>localhost</value>
+                                        </constructor-arg>
+                                        <constructor-arg>
+                                                <value>12001</value>
+                                        </constructor-arg>
+                                </bean>
+                        </list>
+                </constructor-arg>
+                <constructor-arg>
+                        <list>
+                                <value>1</value>
+                                <value>2</value>
+                        </list>
+                </constructor-arg>
+                <property name="connectionPoolSize" value="2"></property>
+                <property name="commandFactory">
+                        <bean class="net.rubyeye.xmemcached.command.TextCommandFactory"></bean>
+                </property>
+                <property name="sessionLocator">
+                        <bean class="net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator"></bean>
+                </property>
+                <property name="transcoder">
+                        <bean class="net.rubyeye.xmemcached.transcoders.SerializingTranscoder" />
+                </property>
+        </bean>
+        <!-- Use factory bean to build memcached client -->
+        <bean name="memcachedClient3" factory-bean="memcachedClientBuilder"
+                factory-method="build" destroy-method="shutdown"/>
+}}}
+
 === 设置节点权重 ===
 
 如果是通过spring配置，请看上一节，如果需要编程设置，通过下面代码：

@@ -76,7 +76,7 @@ In fact,xmemcached has another way to intergrate to springframework through XMem
 						<value>localhost</value>
 					</constructor-arg>
 					<constructor-arg>
-						<value>12000</value>
+						<value>12001</value>
 					</constructor-arg>
 				</bean>
 			</list>

@@ -100,5 +100,5 @@ In fact,xmemcached has another way to intergrate to springframework through XMem
 	</bean>
         <!-- Use factory bean to build memcached client -->
 	<bean name="memcachedClient3" factory-bean="memcachedClientBuilder"
-		factory-method="build" />
+		factory-method="build" destroy-method="shutdown"/>
 }}}

@@ -52,6 +52,8 @@ XMemcached是基于java nio框架[http://code.google.com/p/yanf4j/ yanf4j]实现
 
 Xmemcached依赖[http://code.google.com/p/yanf4j/downloads/list yanf4j]和[http://www.slf4j.org/ slf4j]，其中yanf4j是笔者的一个开源nio框架。xmemcached 1.2.x依赖yanf4j 1.0.1。
 
+在测试下面讲到的代码之前，请先自行下载依赖包。
+
 == 简单例子 ==
 
 对于用户来说，最主要的功能是存取数据，假设我们有一个memcached节点IP地址或者域名是host，端口是11211，一个简单的存取数据的例子如下：

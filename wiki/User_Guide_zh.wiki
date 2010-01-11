@@ -125,6 +125,8 @@ Memcached是通过cas协议实现原子更新，所谓原子更新就是compare 
 
 CASOpertion接口只有两个方法，一个是设置最大尝试次数的getMaxTries方法，这里是尝试一次，如果尝试超过这个次数没有更新成功将抛出一个TimeoutException，如果你想无限尝试（理论上），可以将返回值设定为Integer.MAX_VALUE；另一个方法是根据当前获得的GetsResponse来决定更新数据的getNewValue方法，如果更新成功，这个方法返回的值将存储成功，这个方法的两个参数是最新一次gets返回的GetsResponse结果。
 
+
+
 == 更全面的例子 ==
 
 一些更全面的例子，展现了MemcachedClient接口的主要方法：
@@ -152,6 +154,21 @@ CASOpertion接口只有两个方法，一个是设置最大尝试次数的getMax
 }}}
 
 首先存储了hello对应的world字符串，然后调用add和replace方法去尝试添加和替换，因为数据已经存在，因此add会失败，同样replace在数据存在的情况才会成功，也就是将hello对应的数据更新为dennis，然后通过append和prepend方法在dennis前后加上了字符串hello和good，因此通过get返回的结果是hello dennis good。而删除数据则是通过deleteWithNoReply方法，这个方法删除数据并且告诉memcached不用返回应答，因此这个方法不会等待应答直接返回，特别适合于批量处理；同样地，set、add、replace等方法也有相应的withNoReply重载版本，具体请看API文档。
+
+== 迭代所有key ==
+
+Memcached本身并没有提供迭代所有key的方法，但是通过"stats items"和"stats cachedump"统计协议可以做到迭代所有的key，这个迭代过程是低效，因此如无必要，并不推荐使用此方法。XMemcached仅提供了文本协议的迭代支持，其他协议暂未支持。
+
+想迭代所有的key，你只需要获取一个KeyIterator即可：
+{{{
+MemcachedClient client=...
+KeyIterator it=client.getKeyIterator(AddrUtil.getOneAddress("localhost:11211"));
+while(it.hasNext())
+{
+   String key=it.next();
+}
+}}}
+
 == Incr/Decr ==
 
 下面这个例子展现了incr/decr操作的使用，两个操作类似Java中的原子类如AtomicIntger，用于原子递增或者递减变量数值：
@@ -164,7 +181,17 @@ CASOpertion接口只有两个方法，一个是设置最大尝试次数的getMax
 
 }}}
 
-incr和decr都有三个参数的方法，第一个参数指定递增的key名称，第二个参数指定递增的幅度大小，第三个参数指定当key不存在的情况下的初始值。两个参数的重载方法省略了第三个参数，默认指定为0
+incr和decr都有三个参数的方法，第一个参数指定递增的key名称，第二个参数指定递增的幅度大小，第三个参数指定当key不存在的情况下的初始值。两个参数的重载方法省略了第三个参数，默认指定为0。
+
+Xmemcached还提供了一个称为计数器的封装，它封装了incr/decr方法，使用它就可以类似AtomicLong那样去操作计数：
+{{{
+  Counter counter=client.getCounter("counter",0);
+  counter.incrementAndGet();
+  counter.decrementAndGet();
+  counter.addAndGet(-10);
+}}}
+
+其中getCounter的第二个参数是计数器的初始值。
 
 == 查看统计信息 ==
 Memcached提供了统计协议用于查看统计信息：

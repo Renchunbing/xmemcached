@@ -8,10 +8,10 @@ Supports all memcached text based protocols and binary base protocols currently,
 
   Xmemcached 1.2.x needs [http://www.slf4j.org/ slf4j]
 
-  * Xmemcached 1.2.0 and 1.2.1 needs [http://code.google.com/p/yanf4j/downloads/list yanf4j] 1.0.1 *
+  *Xmemcached 1.2.0 and 1.2.1 needs [http://code.google.com/p/yanf4j/downloads/list yanf4j] 1.0.1*
 
 
-  * Xmemcached 1.2.2 needs [http://code.google.com/p/yanf4j/downloads/list yanf4j] 1.1.0 *
+  *Xmemcached 1.2.2 needs [http://code.google.com/p/yanf4j/downloads/list yanf4j] 1.1.0*
 
 =Simple Example=
 {{{

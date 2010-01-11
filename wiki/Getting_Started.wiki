@@ -6,7 +6,12 @@ Supports all memcached text based protocols and binary base protocols currently,
 =Dependencies=
   Xmemcached 1.x needs common-logging and yanf4j-0.70 [http://code.google.com/p/yanf4j/downloads/list])
 
-  Xmemcached 1.2.0-stable needs slf4j([http://www.slf4j.org/]) and yanf4j-1.0.1
+  Xmemcached 1.2.x needs [http://www.slf4j.org/ slf4j]
+
+  * Xmemcached 1.2.0 and 1.2.1 needs [http://code.google.com/p/yanf4j/downloads/list yanf4j] 1.0.1 *
+
+
+  * Xmemcached 1.2.2 needs [http://code.google.com/p/yanf4j/downloads/list yanf4j] 1.1.0 *
 
 =Simple Example=
 {{{
@@ -43,6 +48,17 @@ It sets "localhost:12000" weight to 1,and "localhost:12000" weight to 3.You can 
 	public void setServerWeight(String server, int weight);
    }
 }}}
+=Iterate all keys in memcached=
+This feature is only avaliable when using text protocol.You can get a KeyIterator through:
+{{{
+MemcachedClient client=...
+KeyIterator it=client.getKeyIterator(AddrUtil.getOneAddress("localhost:11211"));
+while(it.hasNext())
+{
+   String key=it.next();
+}
+}}}
+
 =Use binary protocol=
 If you use memcached 1.4.0 or later version,you may want to use binary protocol insteadof text protocol which is used by xmemcached default.You can set it by
 {{{

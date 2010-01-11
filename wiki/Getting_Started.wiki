@@ -48,8 +48,8 @@ It sets "localhost:12000" weight to 1,and "localhost:12000" weight to 3.You can 
 	public void setServerWeight(String server, int weight);
    }
 }}}
-=Iterate all keys in memcached=
-This feature is only avaliable when using text protocol.You can get a KeyIterator through:
+=Key Iterator=
+This feature is only avaliable on xmemcached 1.2.2 when using text protocol.You can get a KeyIterator through:
 {{{
 MemcachedClient client=...
 KeyIterator it=client.getKeyIterator(AddrUtil.getOneAddress("localhost:11211"));
@@ -57,6 +57,16 @@ while(it.hasNext())
 {
    String key=it.next();
 }
+}}}
+
+=Use Counter to incr/decr=
+
+You can use MemcachedClient's incr/decr methods to increase or decrease counter,but xmemcached has a counter which encapsulate the incr/decr methods,you can use counter just like AtomicLong:
+{{{
+Counter counter=client.getCounter("counter",0);
+counter.incrementAndGet();
+counter.decrementAndGet();
+counter.addAndGet(-10);
 }}}
 
 =Use binary protocol=

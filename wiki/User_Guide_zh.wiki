@@ -56,6 +56,9 @@ Xmemcached依赖[http://code.google.com/p/yanf4j/downloads/list yanf4j]和[http:
 
 *xmemcached 1.2.2依赖yanf4j 1.1.0*
 
+*xmemcached 1.2.3和1.2.4版本都是依赖yanf4j 1.1.1*
+
+
 在测试下面讲到的代码之前，请先自行下载依赖包或者下载包含了依赖包的xmemcached。
 
 == 简单例子 ==
@@ -63,7 +66,7 @@ Xmemcached依赖[http://code.google.com/p/yanf4j/downloads/list yanf4j]和[http:
 对于用户来说，最主要的功能是存取数据，假设我们有一个memcached节点IP地址或者域名是host，端口是11211，一个简单的存取数据的例子如下：
 {{{
     MemcachedClientBuilder builder = new XMemcachedClientBuilder(
-					AddrUtil.getAddresses(“host:11211”));
+					AddrUtil.getAddresses("localhost:11211"));
     MemcachedClient memcachedClient = builder.build();
     try {
 		memcachedClient.set("hello", 0, "Hello,xmemcached");
@@ -90,6 +93,7 @@ Xmemcached依赖[http://code.google.com/p/yanf4j/downloads/list yanf4j]和[http:
     }
 
 }}}
+为了节省篇幅，本文的所有代码示例都没有给出完整的package名，具体包名请查询javadoc或者使用IDE工具帮助引入。
 
 因为XMemcachedClient的创建有比较多的可选项，因此提供了一个XMemcachedClientBuilder类用于构建MemcachedClient。MemcachedClient是主要接口，操作memcached的主要方法都在这个接口，XMemcachedClient是它的一个实现。传入的memcached节点列表要求是类似*"host1:port1 host2:port2 …"*这样的字符串，通过AddrUtil.getAddresses方法获取实际的IP地址列表。
 
@@ -333,7 +337,7 @@ XMemcachedClientBuilder(AddrUtil.getAddresses("localhost:12000 localhost:12001")
    MemcachedClient memcachedClient=builder.build();
 }}}
 
-传入一个int数组，里面的元素就是节点对应的权重值，比如这里设置"localhost:12000"节点的权重为1，而"localhost:12001"的权重为3。注意，xmemcached的权重是通过创建更多是连接来实现的，如果权重为3，那么xmemcached将创建3个连接到该memcached节点，这些连接之间的更新并非同步，这一点需要应用自己注意。
+传入一个int数组，里面的元素就是节点对应的权重值，比如这里设置"localhost:12000"节点的权重为1，而"localhost:12001"的权重为3。注意，xmemcached的权重是通过复制连接的多个引用来实现的，比如权重为3，那么就复制3个同一个连接的引用放在集合中让MemcachedSessionLocator查找。
 
 改变节点权重，可以通过setServerWeight方法：
 {{{
@@ -427,6 +431,16 @@ client.setPrimitiveAsString(true);
 }}}
 
 设置为true后，原生类型都将存储为字符串，而序列化类型将无法存储了。 
+
+=== 与TokyoTyrant的交互 ===
+
+通过使用TokyoTyrantTranscoder就可以跟TokyoTyrant进行交互，但是由于TokyoTyrant对memcached文本协议的flag,exptime不支持，因此内部TokyoTyrantTranscoder加了4个字节的flag在value前面，如果你的全部应用都使用xmemcached，那么没有问题，如果使用其他clients，会有兼容性的问题，这一点与跟kestrel交互相同。
+
+{{{
+ MemcachedClientBuilder builder = new    XMemcachedClientBuilder(AddrUtil.getAddresses("localhost:12000 localhost:12001"),new int[]{1,3});
+   builder.setTranscoder(new TokyoTyrantTranscoder());
+   MemcachedClient memcachedClient=builder.build();
+}}}
 
 === 与Hibernate-memcached集成 ===
 

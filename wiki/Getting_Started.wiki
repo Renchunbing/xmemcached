@@ -99,7 +99,15 @@ Then xmemcached will use binary protocol to encode/decode commands.
   client.setPrimitiveAsString(true);
 }}}
 
+
 Set it true means xmemcached will store all java primitive type as string.
+
+= Talking with TokyoTyrant=
+
+Using TokyoTyrantTranscoder when you want to talk with TokyoTyrant,Just like Kestrel,TokyoTyrant doesn't support "flag",So TokyoTyrantTranscoder add 4-bytes flag before the value to store in TokyoTyrant.
+{{{
+  builder.setTranscoder(new TokyoTyrantTranscoder());
+}}}
 
 =Add/Remove memcached servers dynamically=
 

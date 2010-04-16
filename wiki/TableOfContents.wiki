@@ -1,25 +1,13 @@
   * [Features]
-
   * [FAQ]
-
   * [Getting_Started]
-
   * [Getting_Started_zh]
-
   * [User_Guide_zh]
-
   * [memcached_distributed]
-
   * [Spring_Integration]
-
   * [Hibernate_memcached_integration]
-
   * [JMX_Support]
-
   * [Statistics]
-
   * [PerformanceTurnning]
-
   * [User_List]
-
   * [RoadMap]

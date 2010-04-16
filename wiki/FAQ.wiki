@@ -17,9 +17,13 @@ XMemcached is a high performance, easy to use blocking multithreaded memcached c
 == Why another java memcached client? ==
 Xmemcached has some special features that other java memcached clients doen's have,including:
 * JMX monitor,user can add/remove server dynamically
+
 * Client statistics
+
 * Weighting Server
+
 * Nio connection pool
+
 * Talking with kestrel and TokyoTyrant.
 
 == Is Xmemcached compatible with jdk5? ==
@@ -32,4 +36,3 @@ First,your system must install maven,xmemcached use mavn to build itsefl.Then,do
 
 The test.properties file under the src/test/resources folder is used for setting memcached test server.
 Please set test.memcached.servers property value,Then run the unit test with command 'mvn test'
-

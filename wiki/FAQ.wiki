@@ -17,13 +17,9 @@ XMemcached is a high performance, easy to use blocking multithreaded memcached c
 == Why another java memcached client? ==
 Xmemcached has some special features that other java memcached clients doen's have,including:
   * JMX monitor,user can add/remove server dynamically
-
   * Client statistics
-
   * Weighting Server
-
   * Nio connection pool
-
   * Talking with kestrel and TokyoTyrant.
   * High performance
 

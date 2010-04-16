@@ -16,15 +16,16 @@ XMemcached is a high performance, easy to use blocking multithreaded memcached c
 
 == Why another java memcached client? ==
 Xmemcached has some special features that other java memcached clients doen's have,including:
-* JMX monitor,user can add/remove server dynamically
+  * JMX monitor,user can add/remove server dynamically
 
-* Client statistics
+  * Client statistics
 
-* Weighting Server
+  * Weighting Server
 
-* Nio connection pool
+  * Nio connection pool
 
-* Talking with kestrel and TokyoTyrant.
+  * Talking with kestrel and TokyoTyrant.
+  * High performance
 
 == Is Xmemcached compatible with jdk5? ==
 Yes,since 1.2.0-RC1,Xmemcached is compatible with jdk5,but not 1.4.

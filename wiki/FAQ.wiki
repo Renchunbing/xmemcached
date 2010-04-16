@@ -7,4 +7,24 @@ Frequently Asked Questions about Xmemcached
 
 = Details =
 
-coming soon.
+== What is memcached ==
+Memcached is a high-performance, distributed memory object caching system, generic in nature, but intended for use in speeding up dynamic web applications by alleviating database load.More infomation please visit it's homepage[http://memcached.org/]
+
+== What is xmemcached? ==
+
+XMemcached is a high performance, easy to use blocking multithreaded memcached client in java.
+  It's nio based (using my opensource nio framework :yanf4j), and was carefully tuned to get top performance. 
+
+== Is Xmemcached compatible with jdk5? ==
+Yes,since 1.2.0-RC1,Xmemcached is compatible with jdk5,but not 1.4.
+
+== How to build xmemcached by myself? ==
+First,your system must install maven,xmemcached use mavn to build itsefl.Then,download the source code,and unpack it to a fold,then enter the fold and type command 'mvn -Dtest -DfailIfNoTests=false package' to build the project.
+
+== How to run unit tests? ==
+
+The test.properties file under the src/test/resources folder is used for setting memcached test server.
+Please set test.memcached.servers property value,Then run the unit test with command 'mvn test'
+
+
+

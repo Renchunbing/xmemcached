@@ -13,6 +13,10 @@ Supports all memcached text based protocols and binary base protocols currently,
 
   *Xmemcached 1.2.2 needs [http://code.google.com/p/yanf4j/downloads/list yanf4j] 1.1.0*
 
+  *Xmemcached 1.2.3 and 1.2.4 needs [http://code.google.com/p/yanf4j/downloads/list yanf4j] 1.1.1*
+
+  * Xmemcached 1.2.5 doesn't need yanf4j anymore. *
+
 =Simple Example=
 {{{
 MemcachedClient client=new XMemcachedClient("host",11211);
@@ -200,3 +204,7 @@ public class CASTest {
 
    
 }}}
+
+= Intergrating Spring framework=
+
+Please see [Spring_Integration]

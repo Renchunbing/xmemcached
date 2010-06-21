@@ -41,7 +41,7 @@ XMemcached通过JMX暴露的一些接口，支持client本身的监控和调整�
 
 ==  可扩展性 ==
 
-XMemcached是基于java nio框架[http://code.google.com/p/yanf4j/ yanf4j]实现的，因此在实现上结构相对清楚，分层比较明晰，下面是XMemcached的主要类的UML图:
+XMemcached是基于java nio框架[http://code.google.com/p/yanf4j/ yanf4j]实现的，因此在实现上结构相对清楚，分层比较明晰，在xmemcached 1.2.5之后已经将yanf4j合并到xmemcached，因此不再需要依赖yanf4j，下面是XMemcached的主要类的UML图:
 
 [http://www.blogjava.net/images/blogjava_net/killme2008/main.cld.jpg]
 
@@ -50,7 +50,7 @@ XMemcached是基于java nio框架[http://code.google.com/p/yanf4j/ yanf4j]实现
 在简单介绍完XMemcached的主要特性之后，我们将进入XMemcached的使用环节，这里将按照从简单到复杂的顺序讲解一些例子，以方便用户深入了解XMemcached的使用。
 == 依赖包 ==
 
-Xmemcached依赖[http://code.google.com/p/yanf4j/downloads/list yanf4j]和[http://www.slf4j.org/ slf4j]，其中yanf4j是笔者的一个开源nio框架。
+Xmemcached依赖[http://code.google.com/p/yanf4j/downloads/list yanf4j]和[http://www.slf4j.org/ slf4j]，其中yanf4j是笔者的一个开源nio框架。*注意，从xmemcached 1.2.5开始，xmemcached不再依赖yanf4j。*
 
 *xmemcached 1.2.0和1.2.1版本依赖yanf4j 1.0.1*
 

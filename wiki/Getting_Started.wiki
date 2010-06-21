@@ -63,6 +63,19 @@ while(it.hasNext())
 }
 }}}
 
+= SASL authentication=
+
+Memcached 1.4.3 has supported SASL authentication for client.It is only valid for binary protocol.Xmemcached 1.2.5 has supported this feature.If the memcached server enable SASL and use CRAM-MD5 or PLAIN mechanisms, set username as "cacheuser" and password as "123456",then you can use xmemcached like this:
+{{{
+   MemcachedClientBuilder builder = new XMemcachedClientBuilder(
+					AddrUtil.getAddresses(server));
+   builder.addAuthInfo(AddrUtil.getOneAddress(server), AuthInfo
+					.typical("cacheuser", "password"));
+    // Must use binary protocol
+    builder.setCommandFactory(new BinaryCommandFactory());
+    MemcachedClient client=builder.build();
+}}}
+
 =Use Counter to incr/decr=
 
 You can use MemcachedClient's incr/decr methods to increase or decrease counter,but xmemcached has a counter which encapsulate the incr/decr methods,you can use counter just like AtomicLong:

@@ -237,6 +237,24 @@ getStats方法返回一个map，其中存储了所有已经连接并且有效的
 
 只要向getStatsByItem传入需要统计的项目名称即可。
 
+== SASL验证 ==
+
+Memcached 1.4.3开始支持SASL验证客户端，在服务器配置启用SASL之后，客户端需要通过授权验证才可以跟memcached继续交互，否则将被拒绝请求。XMemcached 1.2.5开始支持这个特性。假设memcached设置了SASL验证，典型地使用CRAM-MD5或者PLAIN的文本用户名和密码的验证机制，假设用户名为cacheuser，密码为123456，那么编程的方式如下：
+{{{
+	MemcachedClientBuilder builder = new XMemcachedClientBuilder(
+					AddrUtil.getAddresses("localhost:11211"));
+	builder.addAuthInfo(AddrUtil.getOneAddress("localhost:11211"), AuthInfo
+					.typical("cacheuser", "123456"));
+	// Must use binary protocol
+	builder.setCommandFactory(new BinaryCommandFactory());
+	MemcachedClient client=builder.build();
+
+}}}
+
+请注意，授权验证仅支持二进制协议。
+
+如果采用Spring配置，请参见spring配置一节。
+
 
 == 高级主题 ==
 
@@ -255,8 +273,16 @@ getStats方法返回一个map，其中存储了所有已经连接并且有效的
 
 那么你就可以在需要使用MemcachedClient的地方引用这个bean.
 
-更完整的配置例子，设置协议类型、一致性哈希、权重、连接池大小，具体请看注释：
+更完整的配置例子，设置协议类型、一致性哈希、权重、连接池大小甚至SASL验证信息(xmemcached 1.2.5支持)，具体请看注释：
 {{{
+<bean name="server1" class="java.net.InetSocketAddress">
+		<constructor-arg>
+			<value>host1</value>
+		</constructor-arg>
+		<constructor-arg>
+			<value>port1</value>
+		</constructor-arg>
+</bean>
 <bean name="memcachedClient"
                 class="net.rubyeye.xmemcached.utils.XMemcachedClientFactoryBean" destroy-method="shutdown">
                 <property name="servers">
@@ -270,6 +296,22 @@ getStats方法返回一个map，其中存储了所有已经连接并且有效的
                                 <value>3</value>
                         </list>
                 </property>
+                <!-- AuthInfo map,only valid on 1.2.5 or later version -->
+		<property name="authInfoMap">
+			<map>
+			        <entry key-ref="server1">
+					<bean class="net.rubyeye.xmemcached.auth.AuthInfo"
+						factory-method="typical">
+						<constructor-arg index="0">
+							<value>cacheuser</value>
+						</constructor-arg>
+						<constructor-arg index="1">
+							<value>123456</value>
+						</constructor-arg>
+					</bean>
+				</entry>
+			</map>
+		</property>
                 <!-- nio connection pool size -->
                 <property name="connectionPoolSize" value="2"></property>
                  <!-- Use binary protocol,default is TextCommandFactory -->
@@ -296,6 +338,7 @@ getStats方法返回一个map，其中存储了所有已经连接并且有效的
 || 属性名 || 值 ||
 || servers || memcached节点列表，形如host1:port1 host2:port2的字符串 ||
 ||weights ||与servers对应的节点的权重，权重越高，连接数越多 ||
+|| authInfoMap || 授权验证信息，仅在xmemcached 1.2.5及以上版本有效 ||
 || connectionPoolSize || nio连接池大小，默认为1  ||
 ||commandFactory ||协议工厂，net.rubyeye.xmemcached.command.BinaryCommandFactory,TextCommandFactory(默认),KestrelCommandFactory ||
 || sessionLocator || 分布策略，一致性哈希net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator或者ArraySessionLocator(默认) ||
@@ -335,6 +378,21 @@ Spring 3.0修改了查找destroy method的方式，因此如果还是采用上�
                                 <value>2</value>
                         </list>
                 </constructor-arg>
+                <property name="authInfoMap">
+			<map>
+				<entry key-ref="server1">
+					<bean class="net.rubyeye.xmemcached.auth.AuthInfo"
+						factory-method="typical">
+						<constructor-arg index="0">
+							<value>cacheuser</value>
+						</constructor-arg>
+						<constructor-arg index="1">
+							<value>123456</value>
+						</constructor-arg>
+					</bean>
+				</entry>
+			</map>
+		</property>
                 <property name="connectionPoolSize" value="2"></property>
                 <property name="commandFactory">
                         <bean class="net.rubyeye.xmemcached.command.TextCommandFactory"></bean>
@@ -421,6 +479,7 @@ JMX的更多选项:
    //Remove memcached servers
    client.removeServer("server1:11211 server2:11211");
 }}}
+
 
 === Nio连接池 ===
 Xmemcached是基于java nio的client实现，默认对一个memcached节点只有一个连接，这在通常情况下已经有非常优异的表现。但是在典型的高并发环境下,nio的单连接也会遇到性能瓶颈。因此XMemcached支持设置nio的连接池，允许建立多个连接到同一个memcached节点，但是请注意，这些连接之间是不同步的，因此你的应用需要自己保证数据更新的同步，启用连接池可以通过下面代码： 

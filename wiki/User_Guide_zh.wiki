@@ -455,7 +455,7 @@ client.setPrimitiveAsString(true);
 
 设置为true后，原生类型都将存储为字符串，而序列化类型将无法存储了。 
 
-=== 与TokyoTyrant交互 ===
+=== 与tokyotyrant交互 ===
 
 通过使用TokyoTyrantTranscoder就可以跟TokyoTyrant进行交互，但是由于TokyoTyrant对memcached文本协议的flag,exptime不支持，因此内部TokyoTyrantTranscoder加了4个字节的flag在value前面，如果你的全部应用都使用xmemcached，那么没有问题，如果使用其他clients，会有兼容性的问题，这一点与跟kestrel交互相同。
 

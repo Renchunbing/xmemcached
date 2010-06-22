@@ -2,6 +2,10 @@
 #labels Phase-Support,UserGuide,用户指南
 <wiki:toc max_depth="4" />
 
+= 变更历史 =
+
+2010-06-22  添加客户端分布和SASL验证两节，更新spring配置一节。
+
 = XMemcached简介 =
 
 XMemcached是一个新java memcached client。也许你还不知道memcached是什么？可以先看看[http://code.google.com/p/memcached/ 这里]。简单来说，Memcached 是一个高性能的分布式内存对象的key-value缓存系统，用于动态Web应用以减轻数据库负载，现在也有很多人将它作为内存式数据库在使用，memcached通过它的自定义协议与客户端交互，而XMemcached就是它的一个java客户端实现。

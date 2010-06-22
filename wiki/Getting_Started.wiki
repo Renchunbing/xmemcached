@@ -6,7 +6,7 @@ Supports all memcached text based protocols and binary base protocols currently,
 =Dependencies=
   *Xmemcached 1.x needs common-logging and yanf4j-0.70 [http://code.google.com/p/yanf4j/downloads/list])
 
-  *Xmemcached 1.2.x needs [http://www.slf4j.org/ slf4j]
+  *Xmemcached 1.2.x change log to  [http://www.slf4j.org/ slf4j]
 
   *Xmemcached 1.2.0 and 1.2.1 needs [http://code.google.com/p/yanf4j/downloads/list yanf4j] 1.0.1
 

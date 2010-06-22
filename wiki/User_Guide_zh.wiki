@@ -1,4 +1,4 @@
-#summary 用户指南
+#summary 用户指南 0.3版本
 #labels Phase-Support,UserGuide,用户指南
 <wiki:toc max_depth="4" />
 

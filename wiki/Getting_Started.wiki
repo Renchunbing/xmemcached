@@ -17,6 +17,14 @@ Supports all memcached text based protocols and binary base protocols currently,
 
   * Xmemcached 1.2.5 doesn't need yanf4j anymore. 
 
+   If you are using maven to build your project,you would just add a dependence with xmemcached:
+{{{
+  <dependency>
+       <groupId>com.googlecode.xmemcached</groupId>
+       <artifactId>xmemcached</artifactId>
+  </dependency>
+}}}
+
 =Simple Example=
 {{{
 MemcachedClient client=new XMemcachedClient("host",11211);

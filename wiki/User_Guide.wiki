@@ -53,10 +53,7 @@ As mentioned before, Java NIO will use one connection for one memcached server a
 
 ==  Expendable ==
 
-XMemcached is implemented under java NIO framework[http://code.google.com/p/yanf4j/ yanf4j], with clear architecture. (yanf4j is combined into XMemcached after XMemcached 1.2.5). You can find the classes UML diagram of XMemcached here
-[http://www.blogjava.net/images/blogjava_net/killme2008/main.cld.jpg] .
-
-
+XMemcached is implemented under java NIO framework[http://code.google.com/p/yanf4j/ yanf4j], with clear architecture. (yanf4j is combined into XMemcached after XMemcached 1.2.5). You can find the classes UML diagram of XMemcached here[http://www.blogjava.net/images/blogjava_net/killme2008/main.cld.jpg] .
 
 
 = User Guide = 

@@ -173,7 +173,7 @@ Using TokyoTyrantTranscoder when you want to talk with TokyoTyrant,Just like Kes
                 //increase current value                
 		@Override
 		public Integer getNewValue(long currentCAS, Integer currentValue) {
-			return currentValue + 1; // 当前值+1
+			return currentValue + 1; // current value + 1
 		}
 	}
 

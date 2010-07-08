@@ -43,3 +43,5 @@ Also,you can change the default operation timeout vlaue by
    memcachedClient.setOpTimeout(5000L); //change to five seconds
 }}}
 The unit is milliseconds.
+
+中文FAQ和性能调整建议 [http://www.blogjava.net/killme2008/archive/2010/07/08/325564.html]

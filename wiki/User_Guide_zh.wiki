@@ -6,6 +6,7 @@
 
 2010-06-22  添加客户端分布和SASL验证两节，更新spring配置一节。
 2010-06-23  添加maven依赖说明
+2010-10-17  1.2.6 released
 
 = XMemcached简介 =
 
@@ -55,14 +56,7 @@ XMemcached是基于java nio框架[http://code.google.com/p/yanf4j/ yanf4j]实现
 在简单介绍完XMemcached的主要特性之后，我们将进入XMemcached的使用环节，这里将按照从简单到复杂的顺序讲解一些例子，以方便用户深入了解XMemcached的使用。
 == 依赖包 ==
 
-Xmemcached依赖[http://code.google.com/p/yanf4j/downloads/list yanf4j]和[http://www.slf4j.org/ slf4j]，其中yanf4j是笔者的一个开源nio框架。*注意，从xmemcached 1.2.5开始，xmemcached不再依赖yanf4j。*
-
-*xmemcached 1.2.0和1.2.1版本依赖yanf4j 1.0.1*
-
-*xmemcached 1.2.2依赖yanf4j 1.1.0*
-
-*xmemcached 1.2.3和1.2.4版本都是依赖yanf4j 1.1.1*
-
+Xmemcached依赖[http://www.slf4j.org/ slf4j]
 
 在测试下面讲到的代码之前，请先自行下载依赖包或者下载包含了依赖包的xmemcached。
 

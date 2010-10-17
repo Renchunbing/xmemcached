@@ -63,15 +63,7 @@ We will show you some examples from simple to complex, then you can learn XMemca
 
 == Dependence ==
 
-XMemcached depend on [http://code.google.com/p/yanf4j/downloads/list yanf4j] and [http://www.slf4j.org/ slf4j], and yanf4j is my another open source NIO framework. 
-
-*Note: XMemcached is not depend on yanf4j since version 1.2.5.*
-
- * XMemcached 1.2.0 and 1.2.1L need yanf4j 1.0.1
-
- * XMemcached 1.2.2 need yanf4j 1.1.0
-
- * XMemcached 1.2.3 and 1.2.4 need yanf4j 1.1.1
+XMemcached depend on[http://www.slf4j.org/ slf4j]
 
 You must download dependence or download whole XMemcached package with dependence before test following code.
 

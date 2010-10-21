@@ -44,4 +44,12 @@ Also,you can change the default operation timeout vlaue by
 }}}
 The unit is milliseconds.
 
+== How to store more than 1MB data to memcached? ==
+
+Since memcached 1.4.2, it allow user to store more than 1MB size data.Xmemcached only allow use storing maximum 1MB of data by default,if you want to store more than that,please use custom transcoder:
+{{{
+  //set maximum to 10MB
+  memcachedClient.setTranscoder(new SerializingTranscoder(10*1024*1024));
+}}}
+
 中文FAQ和性能调整建议 [http://www.blogjava.net/killme2008/archive/2010/07/08/325564.html]

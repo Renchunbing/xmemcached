@@ -56,7 +56,7 @@ Since memcached 1.4.2, it allow user to store more than 1MB size data.Xmemcached
 == How to listen memcached client state? ==
 
 If you want to be notified when memcached client was startup,shutdown,connecting a memcached server or disconnecting,you could implement [MemcachedClientStateListener http://xmemcached.googlecode.com/svn/trunk/apidocs/net/rubyeye/xmemcached/MemcachedClientStateListener.html] interface and add a instance to memcached client:
-[[[
+{{{
 class MyListener implements MemcachedClientStateListener {
 
 	public void onConnected(MemcachedClient memcachedClient,
@@ -93,7 +93,7 @@ class MyListener implements MemcachedClientStateListener {
 			builder.addStateListener(new MyListener());
                         MemcachedClient client=builder.build();
 
-]]]
+}}}
 
 But you should not call any operations that would block in these callback methods.
 

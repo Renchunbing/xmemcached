@@ -53,4 +53,48 @@ Since memcached 1.4.2, it allow user to store more than 1MB size data.Xmemcached
   memcachedClient.setTranscoder(new SerializingTranscoder(10*1024*1024));
 }}}
 
+== How to listen memcached client state? ==
+
+If you want to be notified when memcached client was startup,shutdown,connecting a memcached server or disconnecting,you could implement [MemcachedClientStateListener http://xmemcached.googlecode.com/svn/trunk/apidocs/net/rubyeye/xmemcached/MemcachedClientStateListener.html] interface and add a instance to memcached client:
+[[[
+class MyListener implements MemcachedClientStateListener {
+
+	public void onConnected(MemcachedClient memcachedClient,
+			InetSocketAddress inetSocketAddress) {
+		System.out.println("Connect to " + inetSocketAddress);
+	}
+
+	public void onDisconnected(MemcachedClient memcachedClient,
+			InetSocketAddress inetSocketAddress) {
+		System.out.println("Disconnect from " + inetSocketAddress);
+
+	}
+
+	public void onException(MemcachedClient memcachedClient, Throwable throwable) {
+		throwable.printStackTrace();
+
+	}
+
+	public void onShutDown(MemcachedClient memcachedClient) {
+		System.out.println("MemcachedClient has been shutdown");
+
+	}
+
+	public void onStarted(MemcachedClient memcachedClient) {
+		System.out.println("MemcachedClient has been started");
+
+	}
+
+}
+
+                        MemcachedClientBuilder builder = new XMemcachedClientBuilder(
+					AddrUtil.getAddresses(servers));
+			// Add my state listener
+			builder.addStateListener(new MyListener());
+                        MemcachedClient client=builder.build();
+
+]]]
+
+But you should not call any operations that would block in these callback methods.
+
 中文FAQ和性能调整建议 [http://www.blogjava.net/killme2008/archive/2010/07/08/325564.html]

@@ -4,6 +4,7 @@
   * [Getting_Started_zh]
   * [User_Guide]
   * [User_Guide_zh]
+  * [FailureMode_StandbyNode]
   * [memcached_distributed]
   * [Spring_Integration]
   * [Hibernate_memcached_integration]

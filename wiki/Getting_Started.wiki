@@ -4,25 +4,15 @@
 Supports all memcached text based protocols and binary base protocols currently, include  get/gets、set、add、replace、delete、append、prepend、cas、multi get/gets、incr、decr、version、stats、flush_all etc.
 
 =Dependencies=
-  *Xmemcached 1.x needs common-logging and yanf4j-0.70 [http://code.google.com/p/yanf4j/downloads/list])
 
-  *Xmemcached 1.2.x change log to  [http://www.slf4j.org/ slf4j]
-
-  *Xmemcached 1.2.0 and 1.2.1 needs [http://code.google.com/p/yanf4j/downloads/list yanf4j] 1.0.1
-
-
-  *Xmemcached 1.2.2 needs [http://code.google.com/p/yanf4j/downloads/list yanf4j] 1.1.0
-
-  *Xmemcached 1.2.3 and 1.2.4 needs [http://code.google.com/p/yanf4j/downloads/list yanf4j] 1.1.1
-
-  * Xmemcached 1.2.5 doesn't need yanf4j anymore. 
+   Xmemcached use [slf4j http://www.slf4j.org/ slf4j] for logging.
 
    If you are using maven to build your project,you would just add a dependence with xmemcached:
 {{{
   <dependency>
        <groupId>com.googlecode.xmemcached</groupId>
        <artifactId>xmemcached</artifactId>
-       <version>1.2.5</version>
+       <version>1.3.0</version>
   </dependency>
 }}}
 

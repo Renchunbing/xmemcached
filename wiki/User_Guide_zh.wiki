@@ -348,7 +348,7 @@ Memcached 1.4.3开始支持SASL验证客户端，在服务器配置启用SASL之
 配置选项参数表:
 
 || 属性名 || 值 ||
-|| servers || memcached节点列表，形如host1:port,host2:port host3:port,host4:port的字符串,主节点为host1、host3，host1的备份节点为host2，host3的备份节点为host4 ||
+|| servers || memcached节点列表，形如主节点1:port,备份节点1:port 主节点2:port,备份节点2:port的字符串，可以不设置备份节点 ||
 ||weights ||与servers对应的节点的权重 ||
 || authInfoMap || 授权验证信息，仅在xmemcached 1.2.5及以上版本有效 ||
 || connectionPoolSize || nio连接池大小，默认为1  ||

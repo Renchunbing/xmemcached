@@ -5,7 +5,7 @@ Supports all memcached text based protocols and binary base protocols currently,
 
 =Dependencies=
 
-   Xmemcached use [http://www.slf4j.org/ slf4j sl4j] for logging.
+   Xmemcached use [http://www.slf4j.org/ slf4j] for logging.
 
    If you are using maven to build your project,you would just add a dependence with xmemcached:
 {{{

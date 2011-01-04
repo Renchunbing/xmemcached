@@ -1,5 +1,5 @@
 #summary 用户指南 0.4版本
-#labels Phase-Support,UserGuide,用户指南
+#labels Phase-Support,UserGuide,用户指南,Featured
 <wiki:toc max_depth="4" />
 
 = 变更历史 =

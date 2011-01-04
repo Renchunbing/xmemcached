@@ -357,6 +357,7 @@ Memcached 1.4.3开始支持SASL验证客户端，在服务器配置启用SASL之
 
 ||transcoder || 序列化转换器，默认使用net.rubyeye.xmemcached.transcoders.SerializingTranscoder，更多选项参见javadoc ||
 || bufferAllocator || IoBuffer分配器，默认为net.rubyeye.xmemcached.buffer.SimpleBufferAllocator，可选CachedBufferAllocator(不推荐) ||
+|| failureMode   || 是否启用failure模式，true为启用，默认不启用 ||
 
 ==== Spring 3.0和Builder配置 ====
 

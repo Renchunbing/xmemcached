@@ -21,4 +21,6 @@
 
 11.Nio connection pool (since 1.2.0)
 
+12.Failure mode and standby nodes (since 1.3.0).
+
 12.Support kestrel (since 1.2.0)

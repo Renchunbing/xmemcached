@@ -342,6 +342,8 @@ Memcached 1.4.3开始支持SASL验证客户端，在服务器配置启用SASL之
                 <property name="bufferAllocator">
                         <bean class="net.rubyeye.xmemcached.buffer.SimpleBufferAllocator"></bean>
                 </property>
+               <!-- Failure mode -->
+               <property name="failureMode" value="false"/>
         </bean>
 }}}
 

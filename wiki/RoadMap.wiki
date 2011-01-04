@@ -13,4 +13,4 @@
 
 *version-1.2.5 *   Support SASL,remove the dependence on yanf4j. Done.
 
-*version-1.3*     Refactor network layout,allow MemcachedClient instances to share the same network component for saving resources when the applications have many MemcachedClient instances.
+*version-1.3*    Supporting failure mode and standby node.

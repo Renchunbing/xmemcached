@@ -1,5 +1,5 @@
+#summary Failure mode and standby node
 #labels Phase-Support,Featured
-#failure mode and standby node
 
 = Failure Mode =
 Xmemcached 1.3 introduce failure mode for client.When client is in failure mode,if a memcached server was down,then further requests to that server will throw an exception until the server comes back,they did not transform to next available memcached server.Configure failre mode:

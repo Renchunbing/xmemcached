@@ -5,24 +5,18 @@ Xmemcached支持memcached所有的二进制协议（从1.2.0开始）和文本�
 更多信息请参考[http://code.google.com/p/xmemcached/wiki/User_Guide_zh 用户指南]
 
 =依赖包=
-    * Xmemcached 1.x 需要依赖common-logging和yanf4j-0.70[http://code.google.com/p/yanf4j/downloads/list])
 
-    * Xmemcached 1.2.0-stable开始及以后版本需要依赖slf4j([http://www.slf4j.org/])和yanf4j-1.0.1
 
-    * memcached 1.2.0 and 1.2.1 依赖 yanf4j 1.0.1 
+    * Xmemcached 依赖slf4j([http://www.slf4j.org/])
 
-    * memcached 1.2.2 依赖 yanf4j 1.1.0 
 
-    * memcached 1.2.3 and 1.2.4 依赖 yanf4j 1.1.1 
-
-    * Xmemcached 1.2.5 不再依赖yanf4j
 
     如果您使用maven构建，只需要添加依赖即可使用xmemcached:
 {{{
  <dependency>
        <groupId>com.googlecode.xmemcached</groupId>
        <artifactId>xmemcached</artifactId>
-       <version>1.2.5</version>
+       <version>1.3.1</version>
   </dependency>
 
 }}}

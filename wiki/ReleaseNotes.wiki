@@ -7,6 +7,6 @@ Release Notes.
 
 = Details =
 
- * xmemcached 1.3.1 release notes:
+ == xmemcached 1.3.1 release notes ==
 
-Keep memcached servers in input order.
+ * Keep memcached servers in input order.

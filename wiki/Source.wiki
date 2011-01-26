@@ -1,4 +1,4 @@
-#summary Xmemcched source resp
+#summary Xmemcched source repository
 
 Xmemcached source has been moved to github,you can clone it from
 

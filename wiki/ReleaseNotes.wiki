@@ -10,8 +10,10 @@ Release Notes.
 == xmemcached 1.3.3 release notes ==
 
  # Implements touch and GAT(get and touch) commands for memcached 1.6.x,adds new methods to MemcachedClient,includes:
+{{{
          boolean touch(String key, int exp, long opTimeout);
          getAndTouch(String key, int newExp, long opTimeout);
+}}}
  # Method setLoggingLevelVerbosity works with binary protocol.
  # Make exception infomation more friendly.
  # Deprecated KeyIterator and getKeyIterator.

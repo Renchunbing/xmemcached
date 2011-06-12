@@ -12,7 +12,7 @@ Supports all memcached text based protocols and binary base protocols currently,
   <dependency>
        <groupId>com.googlecode.xmemcached</groupId>
        <artifactId>xmemcached</artifactId>
-       <version>1.3.1</version>
+       <version>1.3.3</version>
   </dependency>
 }}}
 

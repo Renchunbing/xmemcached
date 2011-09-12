@@ -35,7 +35,7 @@ First,your system must install maven,xmemcached use mavn to build itsefl.Then,do
 The test.properties file under the src/test/resources folder is used for setting memcached test server.
 Please set test.memcached.servers property value,Then run the unit test with command 'mvn test'
 
-== Why throw java.util.concurrent.TimeoutException?==
+== Why throw java.util.concurrent.TimeoutException ==
 
 Xmemcached is java nio based,so so all requests are asynchronous.The user thread must wait the response from memcached server.When time is over the operation timeout vlaue,then xmemcached would throw java.utill.TimeoutExcetipn.The default operation timeout is one second,and all methods have overload methods that have a parameter named 'optimeout' to override the default value.
 

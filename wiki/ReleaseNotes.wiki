@@ -7,6 +7,11 @@ Release Notes.
 
 = Details =
 
+== Xmemcached 1.3.5 release notes ==
+
+ # Fixed issue 154,issue 155
+ # Thanks ilkinulas and MrRubato.
+
 == Xmemcached 1.3.4 release notes ==
  # Enable nagle algorithm by default.
  # Check result returned by inc/dec protocols is number.

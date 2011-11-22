@@ -97,4 +97,11 @@ class MyListener implements MemcachedClientStateListener {
 
 But you should not call any operations that would block in these callback methods.
 
+== Set items,but can not get items from other machines when using consist hash,why? ==
+
+You set items with some keys in one machine,then try get items by these keys from other machines using the same xmemcached client configuration.How to solve this problem?
+
+In my experience,this is beacause your machines's hostnames are not configure correctly,so the consit hash session locator could not build the sessions finding map correctly,because it use session's remote address toString() method,and it would try to resolve the hostname by default.
+If your machines hostnames are not resolved in the same result on different machines,the finding map will be different,and then xmemcached will not find the same session with the same key.
+
 中文FAQ和性能调整建议 [http://www.blogjava.net/killme2008/archive/2010/07/08/325564.html]

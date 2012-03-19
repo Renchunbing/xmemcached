@@ -6,6 +6,14 @@ Release Notes.
 
 
 = Details =
+== Xmemcached 1.3.6 release notes ==
+
+ # Fixed issues,includes:issue 161,issue 163,issue 165,issue 169,issue 172,issue 173,issue 176,issue 179,issue 180
+ # Adds new methods for MemcachedClientBuilder:setConnectTimeout and setSanitizeKeys
+ # Make heartbeats as an independent task,not just occur when connections are idle.
+ # Disable nagle algorithm by default.
+ # Decrease default merge factor to 50.
+ # Adds CompressionMode for Transcoder,default is ZIP,but you can choose GZIP mode.
 
 == Xmemcached 1.3.5 release notes ==
 

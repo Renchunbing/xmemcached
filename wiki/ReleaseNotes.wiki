@@ -1,5 +1,5 @@
 #summary Xmemcached release notes.
-#labels Phase-Support
+#labels Phase-Support,Featured,ReleaseNotes
 
 = Introduction =
 Release Notes.

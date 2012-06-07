@@ -16,7 +16,7 @@ Xmemcached支持memcached所有的二进制协议（从1.2.0开始）和文本�
  <dependency>
        <groupId>com.googlecode.xmemcached</groupId>
        <artifactId>xmemcached</artifactId>
-       <version>1.3.5</version>
+       <version>1.3.7</version>
   </dependency>
 
 }}}

@@ -75,7 +75,7 @@ If you build your project with maven, you can only add dependency to use XMemcac
  <dependency>
        <groupId>com.googlecode.xmemcached</groupId>
        <artifactId>xmemcached</artifactId>
-       <version>1.3.5</version>
+       <version>1.3.7</version>
   </dependency>
 }}}
 

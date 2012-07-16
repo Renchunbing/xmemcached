@@ -27,6 +27,9 @@ Object someObject=client.get("key");
 //Retrieve a value.(synchronously),operation timeout two seconds.
 someObject=client.get("key",2000);
 
+//Touch cache item ,update it's expire time
+boolean success=client.touch("key",10000);
+
 //delete value
 client.delete("key");
 

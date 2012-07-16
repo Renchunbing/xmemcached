@@ -69,7 +69,7 @@ Xmemcached依赖[http://www.slf4j.org/ slf4j]
  <dependency>
        <groupId>com.googlecode.xmemcached</groupId>
        <artifactId>xmemcached</artifactId>
-       <version>1.3.7</version>
+       <version>{版本号}</version>
   </dependency>
 }}}
 
@@ -115,6 +115,27 @@ Xmemcached依赖[http://www.slf4j.org/ slf4j]
 }}}
 
 就是等待3秒超时，如果3秒超时就跑出TimeutException，用户需要自己处理这个异常。因为等待是通过调用CountDownLatch.await(timeout)方法，因此用户还需要处理中断异常InterruptException。最后的MemcachedException表示Xmemcached内部发生的异常，如解码编码错误、网络断开等等异常情况。
+
+== touch更新数据超时时间 ==
+
+经常有这样的需求，就是希望更新缓存数据的超时时间(expire time)，在没有touch协议之前，你需要整体的get-set一次：
+{{{
+    value=client.get("a");
+    client.set("a",new-expire-time,value);
+}}}
+
+两次操作，加上value的序列化/反序列化、网络传输，这个开销可不小。幸好，现在memcached已经支持touch协议，只需要传递key就更新缓存的超时时间：
+{{{
+    client.touch(key,new-expire-time);
+}}}
+
+xmemcached 1.3.6开始支持二进制协议的touch命令，1.3.8开始支持文本协议的touch命令。
+
+有时候你希望获取缓存数据并更新超时时间，这时候可以用getAndTouch方法（仅二进制协议支持）：
+{{{
+   client.getAndTouch(key,new-expire-time);
+}}}
+
 
 == 客户端分布 ==
 

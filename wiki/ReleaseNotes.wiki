@@ -11,7 +11,7 @@ Release Notes.
 
  # Added `resetStats` method for statistics MBean to reset statstics.
  # Added `setEnableHealSession` method to client/builder to enable/disable healing session when disconnected.
- # Optimize SET operations for binary protocol,36% performnce increased in test.
+ # Optimize SET operations for binary protocol,36% performance increased in test.
  # Fixed incr could not work with custom `KeyProvider`.
  # Fixed client statistics error.
  # Reduce memory consumption on high load.

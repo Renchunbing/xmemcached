@@ -11,8 +11,9 @@ Release Notes.
 
  # Added `setOpTimeout` for client builder.
  # Monitor timeout request in exception message.
+ # Added RandomMemcachedSessionLocaltor for kestrel protocol
  # When timeout exception happens in a connection continuously,we will close it.The maximum number of timeout exception can be set by `setTimeoutExceptionThreshold` method in client,default value is 1000.
-#  Added a new constructor for client builder that accepts a string server list.Thanks @bmahe.
+ # Added a new constructor for client builder that accepts a string server list.Thanks @bmahe.
 
 == Xmemcached 1.3.9 release notes ==
 

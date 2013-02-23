@@ -54,7 +54,7 @@ Then,you can use memcachedClient in other beans.
 
 = Spring 3.0 and Builder config =
 
-If you want to use spring 3.0 with xmemcached,there is a exception like "Couldn't find a destroy method named 'shutdown' on bean", it occured beacause spring ioc container has changed the way to process when the destroy method is not found.So you can't use above configuration to intergrating to spring 3.0.
+If you want to use spring 3.0 with xmemcached,there is a exception like "Couldn't find a destroy method named 'shutdown' on bean", it occured beacause spring ioc container has changed the way to process when the destroy method is not found.So you can't use above configuration to intergrating to spring 3.0. Another choice is upgrading your spring version to newer one.
 
 In fact,xmemcached has another way to intergrate to springframework through XMemcachedClientBuilder by factory-method.Here is an example:
 
@@ -102,3 +102,10 @@ In fact,xmemcached has another way to intergrate to springframework through XMem
 	<bean name="memcachedClient3" factory-bean="memcachedClientBuilder"
 		factory-method="build" destroy-method="shutdown"/>
 }}}
+
+The server list argument setting is so ugly,so in xmemcached 1.4.0 ,we provide a new constructor that accepts a string server list:
+{{{
+<constructor-arg value="host1:port1,host2:port2"/>
+}}}
+
+But it can't set server weights.

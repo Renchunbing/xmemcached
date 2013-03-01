@@ -7,8 +7,8 @@ Release Notes.
 
 = Details =
 == Xmemcached 1.4.1 release notes ==
-# Fixed some log errors
-# Fixed could not find class when deserializing in some web containers.
+ # Fixed some log errors
+ # Fixed could not find class when deserializing in some web containers.
 
 == Xmemcached 1.4.0 release notes ==
 

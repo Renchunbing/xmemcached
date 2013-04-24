@@ -15,7 +15,7 @@ XMemcached supports a easy way to integrate to spring framework since version 1.
 }}}
 Then,you can use memcachedClient in other beans.
 
-=Whole Config=
+= Completed Config=
 
 {{{
   <bean name="memcachedClient"
@@ -108,7 +108,7 @@ The server list argument setting is so ugly,so in xmemcached 1.4.0 ,we provide a
 <constructor-arg value="host1:port1,host2:port2"/>
 }}}
 
+But it can't set server weights.
+
 = Integrate with spring cache framework =
 http://zj0121.iteye.com/blog/1852270
-
-But it can't set server weights.

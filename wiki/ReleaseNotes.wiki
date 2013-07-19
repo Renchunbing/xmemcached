@@ -11,7 +11,7 @@ Release Notes.
  # Upgrade slf4j to 1.7.5
  # Impl namespace in memcached.
  # Daemonizing reactor threads.
- # Supports delete item with CAS value what was read before.
+ # Supports delete item with CAS value that was gets before.
  # Fixed issues:  setEnableHeartBeat could not work ; Trim server addresses before using them ; delete cloud not work with kestrel latest version etc.
 
 == Xmemcached 1.4.1 release notes ==

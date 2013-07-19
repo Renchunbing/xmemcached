@@ -12,7 +12,7 @@ Release Notes.
  # Impl namespace in memcached.
  # Daemonizing reactor threads.
  # Supports delete item with CAS value that was gets before.
- # Fixed issues:  setEnableHeartBeat could not work ; Trim server addresses before using them ; delete cloud not work with kestrel latest version etc.
+ # Fixed issues:  setEnableHeartBeat could not work ; Trim server addresses before using them ; delete method cloud not work with kestrel latest version etc.
 
 == Xmemcached 1.4.1 release notes ==
  # Fixed some log errors

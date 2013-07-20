@@ -257,6 +257,41 @@ Xmemcached还提供了一个称为计数器的封装，它封装了incr/decr方�
 
 其中getCounter的第二个参数是计数器的初始值。
 
+== 命名空间 ==
+
+从1.4.2开始，xmemcached提供了memcached命名空间的封装使用，你可以将一组缓存项放到同一个命名空间下，可以让整个命名空间下所有的缓存项同时失效，例子：
+
+{{{
+String ns = "namespace" ;
+this.memcachedClient.withNamespace(ns,
+				new MemcachedClientCallable<Void>() {
+
+					public Void call(MemcachedClient client)
+							throws MemcachedException, InterruptedException,
+							TimeoutException {
+                                                 //a,b,c都在namespace下
+						client.set("a",1);
+                                                client.set("b",1);
+                                                client.set("c",1);
+                                                return null;
+					}
+				});
+
+String aValue = this.memcachedClient.withNamespace(ns,
+				new MemcachedClientCallable<Void>() {
+
+					public Void call(MemcachedClient client)
+							throws MemcachedException, InterruptedException,
+							TimeoutException {
+                                                  return client.get("a");
+					}
+				});
+
+//使得命名空间失效
+this.memcachedClient.invalidateNamespace(ns);
+}}}
+
+
 == 查看统计信息 ==
 Memcached提供了统计协议用于查看统计信息：
 {{{

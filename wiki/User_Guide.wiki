@@ -270,6 +270,40 @@ XMemcached also supply a Counter class, it packing the incr/decr method, you can
 
 The second parameter is for initial value for counter.
 
+== Namespace APIs ==
+
+Since 1.4.2, xmemcached supports namespace pattern in memcached,you can put a group of items into a namespace in memcached,and invalidate a group of cache item at one time,for example:
+
+{{{
+String ns = "namespace" ;
+this.memcachedClient.withNamespace(ns,
+                                new MemcachedClientCallable<Void>() {
+
+                                        public Void call(MemcachedClient client)
+                                                        throws MemcachedException, InterruptedException,
+                                                        TimeoutException {
+                                                //a,b,c is under namespace
+                                                client.set("a",1);
+                                                client.set("b",1);
+                                                client.set("c",1);
+                                                return null;
+                                        }
+                                });
+//get the value of a in namespace
+Integer aValue = this.memcachedClient.withNamespace(ns,
+                                new MemcachedClientCallable<Integer>() {
+
+                                        public Integer call(MemcachedClient client)
+                                                        throws MemcachedException, InterruptedException,
+                                                        TimeoutException {
+                                                  return client.get("a");
+                                        }
+                                });
+
+//invalidate namespace
+this.memcachedClient.invalidateNamespace(ns);
+}}}
+
 
 == STAT. Information ==
 Memcached supply protocol for view stat. information.

@@ -276,7 +276,7 @@ this.memcachedClient.withNamespace(ns,
                                                 return null;
 					}
 				});
-
+//获取命名空间内的a对应的值
 Integer aValue = this.memcachedClient.withNamespace(ns,
 				new MemcachedClientCallable<Integer>() {
 

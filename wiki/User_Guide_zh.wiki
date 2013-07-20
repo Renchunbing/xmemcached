@@ -277,10 +277,10 @@ this.memcachedClient.withNamespace(ns,
 					}
 				});
 
-String aValue = this.memcachedClient.withNamespace(ns,
-				new MemcachedClientCallable<Void>() {
+Integer aValue = this.memcachedClient.withNamespace(ns,
+				new MemcachedClientCallable<Integer>() {
 
-					public Void call(MemcachedClient client)
+					public Integer call(MemcachedClient client)
 							throws MemcachedException, InterruptedException,
 							TimeoutException {
                                                   return client.get("a");

@@ -9,9 +9,9 @@ Release Notes.
 == Xmemcached 1.4.3 release notes ==
 
  # Added 'setConnectTimeout' for XMemcachedClientFactoryBean.Thanks to nick verbeck.
- # Added environment variable 'xmemcached.heartbeat.max_threads' to sizing heart thread pool size,it's CPUs by default.
- # Configure heartbeat thread pool,such as daemonizing,priority etc.Thanks to  profondometer.
- # Catch all exception when removing shutdown hook,make it quietly.
+ # Added environment variable 'xmemcached.heartbeat.max_threads' to sizing heartbeat thread pool size,it's CPUs count number by default.
+ # Configure heartbeat thread pool,such as daemon,priority etc.Thanks to  profondometer.
+ # Catch all exceptions when removing shutdown hook,make it quiet.
  # Fixed batch get could not work with namespace.
  # Fixed NPE when destroying memcached connection.
 

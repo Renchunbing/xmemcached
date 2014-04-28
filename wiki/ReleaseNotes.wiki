@@ -6,6 +6,15 @@ Release Notes.
 
 
 = Details =
+== Xmemcached 2.0.0 release note ==
+
+# Performance tweaks,10% improved for text protocol in my benchmark.
+# Fixed getStats could not work with 'cache dump',thanks to machao9email.
+# Fixed deak lock when shutdown client.
+# Fixed missing unsigned conversion on ONE_AT_A_TIME hash, thanks to spudone.
+# Cached decoded object for the same key in a batch get,reduce CPU consumption.
+# Used System.nanoTime instead of currentTimeInMills to generate namespace timestamp.
+
 == Xmemcached 1.4.3 release notes ==
 
  # Added 'setConnectTimeout' for XMemcachedClientFactoryBean.Thanks to nick verbeck.
